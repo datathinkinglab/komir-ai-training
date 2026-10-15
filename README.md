@@ -5,7 +5,7 @@
 
 ## 파일
 
-- `index.html`: 강의노트 원본 `komir_lecture_note.html`
+- `index.html`: 강의노트 원본 `komir_lecture_note_new.html`
 - `sample_data_hub.html`: 실습 데이터 허브 원본 `code_artifact (5).html`
 - `.nojekyll`: HTML 정적 파일 배포 설정
 
