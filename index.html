@@ -1,0 +1,2534 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>한국광해광업공단 신규입사자 AI 역량강화 교육 (8H)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Pretendard -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', 'Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace']
+          },
+          colors: {
+            komir: {
+              navy: '#0b192c',
+              dark: '#071220',
+              accent: '#0284c7',
+              teal: '#0d9488',
+              surface: '#f8fafc'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      font-family: 'Pretendard', sans-serif;
+      background-color: #071220;
+      color: #0f172a;
+      margin: 0;
+      padding: 0;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 9999px;
+    }
+
+    /* Photographic Background Styles for Title / Chapter Dividers */
+    .bg-komir-photo {
+      background-image: 
+        linear-gradient(135deg, rgba(7, 18, 32, 0.94) 0%, rgba(11, 25, 44, 0.88) 50%, rgba(15, 23, 42, 0.95) 100%),
+        url('https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .bg-divider-photo {
+      background-image: 
+        linear-gradient(135deg, rgba(7, 18, 32, 0.95) 0%, rgba(13, 148, 136, 0.45) 45%, rgba(11, 25, 44, 0.93) 100%),
+        url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* High-Visibility Content Typography */
+    .slide-body-card {
+      background-color: #ffffff;
+      border: 2px solid #cbd5e1;
+      border-radius: 1.15rem;
+      padding: 1.6rem;
+      box-shadow: 0 4px 10px -2px rgba(0, 0, 0, 0.06);
+      transition: all 0.2s ease;
+    }
+    .slide-body-card:hover {
+      border-color: #0284c7;
+      box-shadow: 0 10px 16px -2px rgba(0, 0, 0, 0.1);
+    }
+    .slide-body-card h4 {
+      color: #0f172a !important;
+      font-weight: 800 !important;
+      font-size: 1.25rem !important;
+      line-height: 1.4 !important;
+      margin-bottom: 0.6rem;
+    }
+    .slide-body-card p, .slide-body-card li {
+      color: #1e293b !important;
+      font-size: 1.02rem !important;
+      line-height: 1.65 !important;
+      font-weight: 500 !important;
+    }
+
+    /* Distinct Visual Styles: AI Prompt Box vs Task Workflow Guide Box */
+    .prompt-container-box {
+      background: linear-gradient(180deg, #09121f 0%, #030712 100%);
+      border: 1.5px solid #059669;
+      box-shadow: 0 4px 20px -2px rgba(5, 150, 105, 0.2);
+    }
+    .guide-container-box {
+      background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+      border: 1.5px solid #6366f1;
+      box-shadow: 0 4px 15px -2px rgba(99, 102, 241, 0.15);
+    }
+
+    /* Pure Slide Presentation Mode: Hide Header & Footer Frames Completely */
+    body.is-fullscreen header,
+    body.is-fullscreen footer {
+      display: none !important;
+    }
+
+    body.is-fullscreen #slideViewportContainer {
+      padding: 0 !important;
+      margin: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: none !important;
+      max-height: none !important;
+      overflow: hidden !important;
+    }
+
+    body.is-fullscreen #slideViewport {
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: none !important;
+      max-height: none !important;
+      border-radius: 0 !important;
+      border: none !important;
+      box-shadow: none !important;
+      aspect-ratio: auto !important;
+    }
+
+    /* Fullscreen Auto-Hiding Control HUD */
+    #fullscreenHud {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    /* Toast Animation */
+    @keyframes toastFadeIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .animate-toast {
+      animation: toastFadeIn 0.25s ease-out forwards;
+    }
+
+    /* Print Styles for PDF Export */
+    @media print {
+      body {
+        background: white !important;
+        overflow: visible !important;
+        height: auto !important;
+      }
+      header, footer, #tocModal, #dataHubModal, #toastContainer, #slideViewportContainer {
+        display: none !important;
+      }
+      #printContainer {
+        display: block !important;
+        width: 100% !important;
+      }
+      .print-slide-page {
+        page-break-after: always;
+        break-after: page;
+        width: 100%;
+        min-height: 96vh;
+        padding: 32px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: white !important;
+        color: #0f172a !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-slate-100 h-screen w-screen flex flex-col justify-between overflow-hidden select-none">
+
+  <!-- ============================================================== -->
+  <!-- TOP FRAME: LOGOS, MODULE IDENTITY & ACTION CONTROLS            -->
+  <!-- ============================================================== -->
+  <header class="bg-slate-900/90 border-b border-slate-800 backdrop-blur px-4 sm:px-6 py-2.5 shrink-0 z-30 shadow-md">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
+      
+      <!-- Left: Data Thinking Lab Logo -->
+      <div class="flex items-center space-x-3 shrink-0">
+        <svg class="w-8 h-8 shrink-0" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="8" width="90" height="68" rx="14" stroke="#ffffff" stroke-width="6" fill="#0f172a"/>
+          <path d="M22 76 L22 92 L38 76 Z" fill="#0f172a" stroke="#ffffff" stroke-width="6" stroke-linejoin="round"/>
+          <rect x="18" y="20" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="36" y="20" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="54" y="20" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="72" y="20" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="18" y="37" width="13" height="13" rx="3" fill="#f97316"/>
+          <rect x="36" y="37" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="54" y="37" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="72" y="37" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="18" y="54" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="36" y="54" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="54" y="54" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="72" y="54" width="13" height="13" rx="3" stroke="#94a3b8" stroke-dasharray="2 2" stroke-width="2" fill="none"/>
+        </svg>
+        <div>
+          <div class="text-white font-black text-xs sm:text-sm tracking-tight leading-none">Data Thinking Lab</div>
+          <div class="text-[9px] text-teal-400 font-bold uppercase tracking-wider mt-0.5">AI · Data Advisor</div>
+        </div>
+      </div>
+
+      <!-- Center: Current Module Indicator & Quick Jump -->
+      <div class="flex items-center space-x-2.5 max-w-md truncate">
+        <span id="headerModuleTitle" class="text-xs sm:text-sm font-black text-sky-300 truncate hidden md:inline">
+          M1. 글로벌 AI 트렌드 & 3대 생성형 AI 비교
+        </span>
+        <select id="quickJumpSelect" onchange="jumpToSlide(this.value)" class="bg-slate-950 border border-slate-700 text-slate-200 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-teal-500 font-mono">
+          <!-- Populated by JS -->
+        </select>
+      </div>
+
+      <!-- Right: Action Buttons & Expert Consulting Logo -->
+      <div class="flex items-center space-x-2 shrink-0">
+        <!-- Sample Data Hub Launcher -->
+        <button onclick="toggleDataHubModal()" class="px-2.5 py-1.5 bg-teal-600 hover:bg-teal-500 active:bg-teal-700 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition shadow">
+          <i class="fa-solid fa-database text-amber-300"></i>
+          <span class="hidden sm:inline">실습 데이터 허브</span>
+        </button>
+
+        <!-- Table of Contents Modal Button -->
+        <button onclick="toggleTOCModal()" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-bold flex items-center gap-1.5 transition border border-slate-700">
+          <i class="fa-solid fa-bars"></i>
+          <span class="hidden sm:inline">전체목차</span>
+        </button>
+
+        <!-- PDF Export Button -->
+        <button onclick="exportToPDF()" class="px-2.5 py-1.5 bg-rose-600/90 hover:bg-rose-500 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition shadow">
+          <i class="fa-solid fa-file-pdf"></i>
+          <span class="hidden sm:inline">PDF 출력</span>
+        </button>
+
+        <!-- Fullscreen Button -->
+        <button onclick="toggleFullScreen()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition border border-slate-700" title="전체화면 (F)">
+          <i class="fa-solid fa-expand text-xs"></i>
+        </button>
+
+        <!-- Expert Consulting Logo -->
+        <div class="hidden lg:flex items-center space-x-2 pl-3 border-l border-slate-800">
+          <div class="text-right leading-none">
+            <span class="text-white italic font-black text-xs tracking-tighter" style="font-family: 'Arial Black', sans-serif;">EXPERT</span>
+            <div class="text-[7px] text-emerald-400 font-bold uppercase tracking-widest">CONSULTING</div>
+          </div>
+          <div class="w-1.5 h-4 bg-gradient-to-b from-emerald-400 to-teal-500 rounded-sm transform skew-x-12"></div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ============================================================== -->
+  <!-- CENTER MAIN SLIDE VIEWPORT (16:9 PRESENTATION STAGE)           -->
+  <!-- ============================================================== -->
+  <main id="slideViewportContainer" class="flex-1 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-hidden">
+    <div id="slideViewport" class="w-full max-w-6xl aspect-[16/9] max-h-[calc(100vh-125px)] bg-white rounded-2xl shadow-2xl border border-slate-700 overflow-hidden relative flex flex-col justify-between">
+      
+      <!-- Slide Content Container (Pre-rendered default slide prevents black screen) -->
+      <div id="slideContent" class="w-full h-full flex flex-col justify-between">
+        <div class="w-full h-full bg-komir-photo text-white p-8 md:p-14 flex flex-col justify-between relative overflow-hidden">
+          <div class="flex items-center justify-between z-10">
+            <span class="px-3.5 py-1 rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/30 text-xs font-bold tracking-wide">
+              2026 신규입사자 입문과정 · 8H 집중 실습
+            </span>
+            <span class="text-xs text-slate-300 font-mono tracking-widest uppercase">KOMIR AI WORKSHOP</span>
+          </div>
+
+          <div class="my-auto z-10 max-w-4xl">
+            <div class="h-1.5 w-20 bg-gradient-to-r from-sky-400 to-teal-300 rounded-full mb-6"></div>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight text-white mb-4 drop-shadow-md">
+              한국광해광업공단 신규입사자 AI 역량강화 교육
+            </h1>
+            <p class="text-base sm:text-lg text-slate-200 font-normal leading-relaxed drop-shadow">
+              도구의 소비자를 넘어, 공단 업무 솔루션의 제작자로 거듭나는 8시간
+            </p>
+          </div>
+
+          <div class="border-t border-slate-700/60 pt-4 flex flex-wrap items-center justify-between text-xs text-slate-300 z-10">
+            <div><strong>강사:</strong> 이승묵 Ph.D (데이터씽킹랩 대표)</div>
+            <div><strong>운영:</strong> 09:00 ~ 18:00 (총 8시간 · 실습 80%)</div>
+            <div><strong>주관:</strong> EXPERT CONSULTING</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ============================================================== -->
+  <!-- BOTTOM FRAME: PROGRESS BAR, COPYRIGHT & SLIDE NAVIGATION      -->
+  <!-- ============================================================== -->
+  <footer class="bg-slate-900/95 border-t border-slate-800 px-4 sm:px-6 py-2.5 shrink-0 z-30">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Left: Navigation Arrows & Slide Counter -->
+      <div class="flex items-center space-x-3">
+        <button onclick="prevSlide()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 active:bg-slate-900 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 border border-slate-700">
+          <i class="fa-solid fa-chevron-left text-[10px]"></i> 이전
+        </button>
+
+        <div class="px-3 py-1 bg-slate-950 rounded-lg border border-slate-800 text-xs font-mono font-bold text-sky-400">
+          <span id="currentSlideNum">1</span> / <span id="totalSlideNum" class="text-slate-500">90</span>
+        </div>
+
+        <button onclick="nextSlide()" class="px-3 py-1.5 bg-sky-600 hover:bg-sky-500 active:bg-sky-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow">
+          다음 <i class="fa-solid fa-chevron-right text-[10px]"></i>
+        </button>
+      </div>
+
+      <!-- Center: Progress Bar & Copyright -->
+      <div class="flex-1 max-w-md mx-4 hidden sm:flex flex-col items-center">
+        <div class="w-full bg-slate-950 h-1.5 rounded-full overflow-hidden border border-slate-800 mb-1">
+          <div id="slideProgressBar" class="h-full bg-gradient-to-r from-sky-500 to-teal-400 w-[1%] transition-all duration-300"></div>
+        </div>
+        <div class="text-[11px] text-slate-400 font-medium">
+          &copy; 2026 Data Thinking Lab. All rights reserved.
+        </div>
+      </div>
+
+      <!-- Right: Keyboard Shortcut Hint -->
+      <div class="text-[11px] text-slate-400 font-mono hidden md:flex items-center space-x-2">
+        <span class="px-1.5 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-300">←/→</span> 이동
+        <span class="px-1.5 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-300">M</span> 목차
+        <span class="px-1.5 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-300">D</span> 데이터허브
+        <span class="px-1.5 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-300">P</span> PDF
+        <span class="px-1.5 py-0.5 bg-slate-800 rounded border border-slate-700 text-slate-300">F</span> 전체화면
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ============================================================== -->
+  <!-- MODAL 1: 전체 목차 (TABLE OF CONTENTS)                         -->
+  <!-- ============================================================== -->
+  <div id="tocModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-4xl max-h-[85vh] rounded-2xl flex flex-col shadow-2xl overflow-hidden">
+      <div class="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-compass"></i>
+          </div>
+          <div>
+            <h3 class="text-white font-bold text-sm sm:text-base">전체 강의 목차 (8개 모듈 · 90 슬라이드)</h3>
+            <p class="text-xs text-slate-400">원하는 슬라이드를 클릭하면 해당 화면으로 즉시 이동합니다.</p>
+          </div>
+        </div>
+        <button onclick="toggleTOCModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Module Filter Tabs -->
+      <div id="tocFilterTabs" class="flex flex-wrap gap-1.5 p-3 bg-slate-950/60 border-b border-slate-800 text-xs"></div>
+
+      <!-- Slide Grid -->
+      <div id="tocSlideList" class="p-4 sm:p-5 overflow-y-auto flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL 2: 실습 데이터 허브 바로가기 모달 (5종 세트 연동)        -->
+  <!-- ============================================================== -->
+  <div id="dataHubModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 w-full max-w-3xl rounded-2xl flex flex-col shadow-2xl overflow-hidden">
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950">
+        <div class="flex items-center space-x-3">
+          <div class="w-9 h-9 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold text-base border border-teal-500/30">
+            <i class="fa-solid fa-database"></i>
+          </div>
+          <div>
+            <h3 class="text-white font-bold text-sm sm:text-base">한국광해광업공단 실습 가상 데이터 허브</h3>
+            <p class="text-xs text-slate-400">교육 실습용 5종 가상 데이터셋 (CSV 및 TXT 규격 완비)</p>
+          </div>
+        </div>
+        <button onclick="toggleDataHubModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-4 text-xs text-slate-300">
+        <p class="leading-relaxed">
+          본 교육 과정의 M1부터 M8까지 모든 실습은 공단 사내 보안 수칙을 준수하기 위해 100% 가상 데이터셋 5종으로 진행됩니다. 별도 배포된 <code class="text-teal-400 font-mono font-bold">sample_data_hub.html</code> 파일을 통해 실시간 검색, 표 확인, 원클릭 복사 및 CSV 다운로드가 가능합니다.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+          <div class="p-3.5 bg-slate-950 border border-slate-800 rounded-xl space-y-1">
+            <span class="text-[10px] text-sky-400 font-bold font-mono">DATASET 1 · M4 & M7 실습</span>
+            <div class="font-bold text-white text-xs">1. 광해방지시설 현장점검 통계 (CSV)</div>
+            <p class="text-[11px] text-slate-400">전국 폐광산 수질정화 및 침전조 점검 이력 25건</p>
+          </div>
+          <div class="p-3.5 bg-slate-950 border border-slate-800 rounded-xl space-y-1">
+            <span class="text-[10px] text-teal-400 font-bold font-mono">DATASET 2 · M4 실습</span>
+            <div class="font-bold text-white text-xs">2. 현장 점검 일지 비정형 메모 10선 (TXT)</div>
+            <p class="text-[11px] text-slate-400">줄글 현장 메모를 표 및 CSV로 변환하는 실습용</p>
+          </div>
+          <div class="p-3.5 bg-slate-950 border border-slate-800 rounded-xl space-y-1">
+            <span class="text-[10px] text-amber-400 font-bold font-mono">DATASET 3 · M6 실습</span>
+            <div class="font-bold text-white text-xs">3. 공단 핵심 복무·여비 규정 FAQ 10선 (CSV)</div>
+            <p class="text-[11px] text-slate-400">경조사 휴가, 관외 여비 등 사내 검색기 웹앱 내장용</p>
+          </div>
+          <div class="p-3.5 bg-slate-950 border border-slate-800 rounded-xl space-y-1">
+            <span class="text-[10px] text-purple-400 font-bold font-mono">DATASET 4 · M2 실습</span>
+            <div class="font-bold text-white text-xs">4. 실무 공문서 변환 시나리오 5종 (TXT)</div>
+            <p class="text-[11px] text-slate-400">현장 메모를 1-Page 표준 기안문으로 변환</p>
+          </div>
+          <div class="p-3.5 bg-slate-950 border border-slate-800 rounded-xl space-y-1 sm:col-span-2">
+            <span class="text-[10px] text-rose-400 font-bold font-mono">DATASET 5 · M3 실습</span>
+            <div class="font-bold text-white text-xs">5. 글로벌 핵심광물 비축 및 공급망 통계 (CSV)</div>
+            <p class="text-[11px] text-slate-400">리튬, 니켈 등 8대 핵심광물 비축일수 및 수입국 비중 팩트체크용</p>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
+          <span class="text-[11px] text-slate-400">다운로드받은 <code class="text-teal-400 font-bold font-mono">sample_data_hub.html</code>을 직접 여시거나 아래 버튼을 누르세요.</span>
+          <button onclick="openDataHubFile()" class="px-4 py-2 bg-teal-600 hover:bg-teal-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> 데이터 허브 열기
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- FULLSCREEN FLOATING CONTROL HUD (Auto-Hides on Inactivity)    -->
+  <!-- ============================================================== -->
+  <div id="fullscreenHud" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden items-center gap-3 bg-slate-900/90 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-slate-700 shadow-2xl opacity-0 pointer-events-none transition-all duration-300">
+    <button onclick="prevSlide()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 border border-slate-700">
+      <i class="fa-solid fa-chevron-left text-[10px]"></i> 이전
+    </button>
+    <div class="px-3 py-1 bg-slate-950 rounded-lg border border-slate-800 text-xs font-mono font-bold text-sky-400">
+      <span id="fsCurrentSlideNum">1</span> / <span id="fsTotalSlideNum">90</span>
+    </div>
+    <button onclick="nextSlide()" class="px-3 py-1.5 bg-sky-600 hover:bg-sky-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow">
+      다음 <i class="fa-solid fa-chevron-right text-[10px]"></i>
+    </button>
+    <div class="h-4 w-px bg-slate-700 mx-1"></div>
+    <button onclick="toggleTOCModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-bold transition flex items-center gap-1.5 border border-slate-700">
+      <i class="fa-solid fa-bars"></i> 전체목차
+    </button>
+    <button onclick="toggleFullScreen()" class="px-3 py-1.5 bg-rose-600/90 hover:bg-rose-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow" title="전체화면 종료 (ESC / F)">
+      <i class="fa-solid fa-compress"></i> 화면종료 (ESC)
+    </button>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed bottom-20 right-6 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+
+  <!-- Hidden Container for Printing all 90 slides to PDF -->
+  <div id="printContainer" class="hidden"></div>
+
+  <script>
+    // Master Module Definitions
+    const MODULES = [
+      { id: 1, title: 'M1. 글로벌 AI 트렌드 & 3대 생성형 AI 비교', range: [1, 11] },
+      { id: 2, title: 'M2. 공공기관 AI 보안 수칙 & 실무 프롬프트 5요소', range: [12, 22] },
+      { id: 3, title: 'M3. 실시간 웹 검색 기반 팩트체크 & 출처 검증', range: [23, 33] },
+      { id: 4, title: 'M4. 비정형 업무 데이터 구조화 & 보고서 프레이밍', range: [34, 45] },
+      { id: 5, title: 'M5. 바이브코딩 기초 — 개념과 단일 HTML 아키텍처', range: [46, 56] },
+      { id: 6, title: 'M6. [실습 1] 사내 Q&A 및 업무지원 웹앱 구축', range: [57, 68] },
+      { id: 7, title: 'M7. [실습 2] 현장점검 체크리스트 & 대시보드 구축', range: [69, 80] },
+      { id: 8, title: 'M8. 디버깅 트러블슈팅과 신입사원 AI 루틴 수립', range: [81, 90] }
+    ];
+
+    // Master 90-Slide Database
+    const SLIDES = [
+      // -------------------------------------------------------------
+      // MODULE 1 (1 ~ 11)
+      // -------------------------------------------------------------
+      {
+        id: 1,
+        moduleId: 1,
+        type: 'title',
+        title: '한국광해광업공단 신규입사자 AI 역량강화 교육',
+        subtitle: '도구의 소비자를 넘어, 공단 업무 솔루션의 제작자로 거듭나는 8시간',
+        badge: '2026 신규입사자 입문과정 · 8H 집중 실습',
+        meta: { instructor: '이승묵 Ph.D (데이터씽킹랩 대표)', duration: '09:00 ~ 18:00 (총 8시간)', partner: 'EXPERT CONSULTING' }
+      },
+      {
+        id: 2,
+        moduleId: 1,
+        type: 'content',
+        title: '오늘 하루 8시간의 여정과 손에 남는 산출물 4종',
+        tag: 'Course Roadmap',
+        contentHtml: `
+          <div class="grid grid-cols-2 gap-5 h-full items-stretch">
+            <div class="slide-body-card flex flex-col justify-between">
+              <div>
+                <span class="px-3 py-1 rounded-md bg-sky-100 text-sky-800 text-sm font-black">오전 산출물 (M1~M3)</span>
+                <h4 class="mt-4 text-xl">1. 3대 LLM 비교표 & 보안 가이드라인</h4>
+                <p class="text-base text-slate-700">ChatGPT, Gemini, Claude 교차 검증 및 비공개 공공데이터 마스킹 템플릿</p>
+                <h4 class="mt-5 text-xl">2. 팩트 검증 기반 1-Page 정책 브리프</h4>
+                <p class="text-base text-slate-700">구글 실시간 검색 연동 출처 대조 3단계 프로토콜 적용 보고서</p>
+              </div>
+              <div class="text-sm text-slate-600 border-t-2 border-slate-200 pt-3 font-extrabold flex items-center gap-2">
+                <i class="fa-solid fa-bullseye text-sky-600"></i> 목표: 환각 없는 정확한 공문서 기획력 확보
+              </div>
+            </div>
+            <div class="slide-body-card flex flex-col justify-between">
+              <div>
+                <span class="px-3 py-1 rounded-md bg-emerald-100 text-emerald-800 text-sm font-black">오후 산출물 (M4~M8)</span>
+                <h4 class="mt-4 text-xl">3. 사내 규정 Q&A 및 업무지원 웹앱</h4>
+                <p class="text-base text-slate-700">실시간 검색 필터 + 공문 인사말 자동 복사기 (<code class="text-rose-600 font-mono font-bold">faq_helper.html</code>)</p>
+                <h4 class="mt-5 text-xl">4. 현장 안전점검 체크리스트 & 대시보드</h4>
+                <p class="text-base text-slate-700">로컬스토리지 영구 저장 + Chart.js 시각화 + 엑셀 내보내기 (<code class="text-rose-600 font-mono font-bold">safety_dashboard.html</code>)</p>
+              </div>
+              <div class="text-sm text-slate-600 border-t-2 border-slate-200 pt-3 font-extrabold flex items-center gap-2">
+                <i class="fa-solid fa-bullseye text-emerald-600"></i> 목표: 서버·설치 없는 독립형 웹도구 2종 완성
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 3,
+        moduleId: 1,
+        type: 'content',
+        title: '2026 글로벌 AI 트렌드: 챗봇에서 업무 에이전트로',
+        tag: 'AI Evolution',
+        contentHtml: `
+          <div class="grid grid-cols-3 gap-5 h-full items-stretch">
+            <div class="slide-body-card flex flex-col justify-between">
+              <div>
+                <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center font-black text-sm mb-3">1세대</div>
+                <h4>단순 대화형 챗봇 (2023)</h4>
+                <p>질문을 던지면 텍스트로만 대답하는 형태. 복사해서 메모장에 옮겨 적는 단편적 활용에 머무름.</p>
+              </div>
+              <div class="text-xs text-slate-500 font-mono bg-slate-50 p-2 rounded-lg border border-slate-200">주요 도구: GPT-3.5 초기 모델</div>
+            </div>
+            <div class="slide-body-card flex flex-col justify-between">
+              <div>
+                <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center font-black text-sm mb-3">2세대</div>
+                <h4>지능형 문서 비서 (2024~2025)</h4>
+                <p>수백 쪽의 규정집 요약, 회의록 정리, 파이썬 기반 데이터 시각화까지 보조 도구로 확장.</p>
+              </div>
+              <div class="text-xs text-slate-500 font-mono bg-slate-50 p-2 rounded-lg border border-slate-200">주요 도구: GPT-4o, Claude 3.5, Gemini 1.5</div>
+            </div>
+            <div class="slide-body-card flex flex-col justify-between border-2 border-sky-400 bg-sky-50/50">
+              <div>
+                <div class="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center font-black text-sm mb-3">3세대</div>
+                <h4 class="text-sky-950">자율형 업무 에이전트 (현재)</h4>
+                <p class="font-semibold text-slate-800">목표를 부여하면 스스로 검색하고, 코드를 작성하며, 실행 가능한 소프트웨어 파일로 완성해냄.</p>
+              </div>
+              <div class="text-xs text-sky-800 font-extrabold bg-sky-100 p-2 rounded-lg border border-sky-200">★ 오늘의 핵심: Vibe Coding</div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 4,
+        moduleId: 1,
+        type: 'content',
+        title: '글로벌 기업 10곳 중 9곳은 이미 AI를 실무에 도입 (88%)',
+        tag: 'Industry Benchmark',
+        contentHtml: `
+          <div class="flex flex-col md:flex-row gap-6 h-full items-center justify-center">
+            <div class="w-full md:w-1/3 bg-slate-900 text-white rounded-2xl p-8 text-center flex flex-col justify-center items-center shadow-xl border border-slate-800">
+              <div class="text-6xl font-black text-sky-400 tracking-tight">88%</div>
+              <div class="text-base text-slate-200 mt-3 font-extrabold">글로벌 기업 AI 도입률</div>
+              <div class="text-xs text-slate-400 mt-2 font-mono">McKinsey, The State of AI (1,993명 조사)</div>
+            </div>
+            <div class="w-full md:w-2/3 space-y-4">
+              <div class="p-5 bg-white border-2 border-slate-200 rounded-2xl shadow-sm">
+                <div class="font-extrabold text-base sm:text-lg text-slate-900 flex items-center gap-2.5">
+                  <i class="fa-solid fa-circle-check text-emerald-500 text-lg"></i> AI 교육의 세 가지 핵심 축
+                </div>
+                <div class="text-sm sm:text-base text-slate-700 mt-2 leading-relaxed font-medium">이해하는 힘 (AI 리터러시) + 이끄는 힘 (AI 리더십) + 만들어보는 힘 (바이브코딩)</div>
+              </div>
+              <div class="p-5 bg-white border-2 border-slate-200 rounded-2xl shadow-sm">
+                <div class="font-extrabold text-base sm:text-lg text-slate-900 flex items-center gap-2.5">
+                  <i class="fa-solid fa-shield-halved text-sky-600 text-lg"></i> 가장 똑똑한 AI보다 '지금 우리 업무에 안전한 AI'
+                </div>
+                <div class="text-sm sm:text-base text-slate-700 mt-2 leading-relaxed font-medium">공공기관의 특성을 고려하여 사내망 보안 규정을 철저히 지키는 운영 기준이 선행되어야 함.</div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 5,
+        moduleId: 1,
+        type: 'content',
+        title: '생성형 AI 3대 패밀리 개요 (ChatGPT vs Gemini vs Claude)',
+        tag: 'Tool Landscape',
+        contentHtml: `
+          <div class="grid grid-cols-3 gap-3.5 h-full">
+            <div class="slide-body-card flex flex-col justify-between">
+              <div>
+                <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 flex items-center justify-center font-bold text-xs mb-2">GPT</div>
+                <h4>ChatGPT (OpenAI)</h4>
+                <p>가장 범용적인 생태계. 보고서 기획, 논리 구조 잡기, 파이썬 데이터 분석 기능이 안정적임.</p>
+              </div>
+              <div class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">추천: 기획 초안 & 범용 브레인스토밍</div>
+            </div>
+            <div class="slide-body-card flex flex-col justify-between border-2 border-sky-400 bg-sky-50/50">
+              <div>
+                <div class="w-8 h-8 rounded-lg bg-sky-500/10 text-sky-600 flex items-center justify-center font-bold text-xs mb-2">Gem</div>
+                <h4>Google Gemini</h4>
+                <p>구글 검색 실시간 연동(Grounded Search). 방대한 컨텍스트 창, 멀티모달 이해도 및 HTML 코드 생성력 탁월.</p>
+              </div>
+              <div class="text-[11px] font-bold text-sky-800 bg-sky-100 px-2 py-0.5 rounded">★ 오늘 메인 실습 도구 (무료 계정)</div>
+            </div>
+            <div class="slide-body-card flex flex-col justify-between">
+              <div>
+                <div class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-600 flex items-center justify-center font-bold text-xs mb-2">Cla</div>
+                <h4>Claude (Anthropic)</h4>
+                <p>가장 사람에 가까운 자연스러운 한국어 문체. 장문 보고서 요약, 정교한 로직 검증에 매우 뛰어남.</p>
+              </div>
+              <div class="text-[11px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded">추천: 공문서 문장 교정 & 긴 규정 요약</div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 6,
+        moduleId: 1,
+        type: 'content',
+        title: '3대 LLM 심층 비교: 답변 스타일과 실무성',
+        tag: 'Comparison Criteria',
+        contentHtml: `
+          <div class="overflow-x-auto h-full flex flex-col justify-center">
+            <table class="w-full text-sm text-left border-collapse border-2 border-slate-300 rounded-xl overflow-hidden shadow-sm">
+              <thead class="bg-slate-100 text-slate-800 uppercase font-black">
+                <tr>
+                  <th class="p-4 border border-slate-300 text-sm">평가 항목</th>
+                  <th class="p-4 border border-slate-300 text-emerald-700 text-sm">ChatGPT (GPT-4o)</th>
+                  <th class="p-4 border border-slate-300 text-sky-900 bg-sky-100/70 font-black text-sm">Google Gemini (무료)</th>
+                  <th class="p-4 border border-slate-300 text-amber-800 text-sm">Claude 3.5 Sonnet</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 text-slate-800 font-medium">
+                <tr>
+                  <td class="p-3.5 font-bold text-slate-900 border border-slate-300 bg-slate-50">실시간 웹 검색력</td>
+                  <td class="p-3.5 border border-slate-300">보통 (Bing 기반)</td>
+                  <td class="p-3.5 border border-slate-300 font-extrabold text-sky-900 bg-sky-50">최상 (Google 실시간 색인 연동)</td>
+                  <td class="p-3.5 border border-slate-300">제한적 (모델 지식 위주)</td>
+                </tr>
+                <tr>
+                  <td class="p-3.5 font-bold text-slate-900 border border-slate-300 bg-slate-50">한국어 행정 문장력</td>
+                  <td class="p-3.5 border border-slate-300">우수 (표준적 어조)</td>
+                  <td class="p-3.5 border border-slate-300 font-extrabold text-sky-900 bg-sky-50">우수 (간결한 개조식 불릿)</td>
+                  <td class="p-3.5 border border-slate-300 text-amber-900 font-bold">최상 (자연스러운 공문서 문체)</td>
+                </tr>
+                <tr>
+                  <td class="p-3.5 font-bold text-slate-900 border border-slate-300 bg-slate-50">웹앱 코드 완성도</td>
+                  <td class="p-3.5 border border-slate-300">최상 (풍부한 라이브러리)</td>
+                  <td class="p-3.5 border border-slate-300 font-extrabold text-sky-900 bg-sky-50">최상 (단일 HTML 완결성 우수)</td>
+                  <td class="p-3.5 border border-slate-300">최상 (컴포넌트 구조 탄탄)</td>
+                </tr>
+                <tr>
+                  <td class="p-3.5 font-bold text-slate-900 border border-slate-300 bg-slate-50">무료 계정 실습 적합도</td>
+                  <td class="p-3.5 border border-slate-300">사용량 제한 엄격</td>
+                  <td class="p-3.5 border border-slate-300 font-extrabold text-sky-900 bg-sky-50">최적 (넉넉한 무료 한도 제공)</td>
+                  <td class="p-3.5 border border-slate-300">단시간 내 사용량 소진 잦음</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        `
+      },
+      {
+        id: 7,
+        moduleId: 1,
+        type: 'content',
+        title: '신입사원 업무 상황별 도구 선택 매트릭스',
+        tag: 'Decision Matrix',
+        contentHtml: `
+          <div class="grid grid-cols-2 gap-3.5 h-full">
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
+              <div class="font-bold text-xs text-slate-900 flex items-center gap-1.5">
+                <i class="fa-solid fa-magnifying-glass text-sky-600"></i> 외부 정보 탐색 & 시장 조사
+              </div>
+              <p class="text-xs text-slate-600">글로벌 핵심광물 시세, 정부의 자원안보 보도자료, 광해방지 신기술 논문 검색</p>
+              <div class="p-1.5 bg-sky-100 text-sky-900 rounded font-bold text-xs flex justify-between">
+                <span>추천: Google Gemini</span>
+                <span class="text-[10px] font-normal">구글 실시간 검색 Grounding</span>
+              </div>
+            </div>
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
+              <div class="font-bold text-xs text-slate-900 flex items-center gap-1.5">
+                <i class="fa-solid fa-pen-nib text-amber-600"></i> 장문 보고서 교정 & 공문서화
+              </div>
+              <p class="text-xs text-slate-600">지자체 협조 공문, 거친 현장 복명서 메모를 격식 있는 공문서 체계로 전환</p>
+              <div class="p-1.5 bg-amber-100 text-amber-900 rounded font-bold text-xs flex justify-between">
+                <span>추천: Claude / ChatGPT</span>
+                <span class="text-[10px] font-normal">문체 리라이팅 강점</span>
+              </div>
+            </div>
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
+              <div class="font-bold text-xs text-slate-900 flex items-center gap-1.5">
+                <i class="fa-solid fa-laptop-code text-teal-600"></i> 반복 행정업무 자동화 웹앱
+              </div>
+              <p class="text-xs text-slate-600">복무규정 검색기, 현장점검 체크리스트, 주간 업무 현황 대시보드 제작</p>
+              <div class="p-1.5 bg-teal-100 text-teal-900 rounded font-bold text-xs flex justify-between">
+                <span>추천: Gemini 바이브코딩</span>
+                <span class="text-[10px] font-normal">단일 HTML 원클릭 실행</span>
+              </div>
+            </div>
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
+              <div class="font-bold text-xs text-slate-900 flex items-center gap-1.5">
+                <i class="fa-solid fa-shield-halved text-rose-600"></i> 중요 문서 크로스체크
+              </div>
+              <p class="text-xs text-slate-600">이사회 보고 등 치명적인 오류가 없어야 하는 고위험 문서 검토</p>
+              <div class="p-1.5 bg-slate-200 text-slate-900 rounded font-bold text-xs flex justify-between">
+                <span>2개 이상 도구 교차 비교</span>
+                <span class="text-[10px] font-normal">답변 일치 여부 확인</span>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 8,
+        moduleId: 1,
+        type: 'practice',
+        title: '[실습 1-1] 3대 도구 동시 접속 및 실습 환경 준비',
+        tag: 'Hands-on STEP 1',
+        isGuide: true,
+        guide: `[실습 환경 세팅 및 브라우저 접속 가이드]
+1단계: Chrome 또는 Edge 브라우저를 실행합니다.
+2단계: 탭 3개를 열고 아래 URL로 각각 이동합니다:
+  • Google Gemini: https://gemini.google.com (★ 오늘 메인 실습 도구)
+  • ChatGPT: https://chatgpt.com
+  • Claude: https://claude.ai
+3단계: 개인 구글 계정으로 각 서비스에 로그인합니다.
+4단계: 3개 서비스 모두 대화 입력창(프롬프트 창)이 정상적으로 노출되는지 확인합니다.`,
+        checklist: [
+          'Chrome 브라우저 실행 완료',
+          'Gemini 로그인 및 첫 화면 진입 완료',
+          'ChatGPT / Claude 탭 보조 준비 완료'
+        ]
+      },
+      {
+        id: 9,
+        moduleId: 1,
+        type: 'practice',
+        title: '[실습 1-2] 동일 업무 프롬프트 3대 도구 교차 질의 실습',
+        tag: 'Hands-on STEP 2',
+        prompt: `[역할] 공공기관 10년 차 행정 기획 전문가
+[상황] 한국광해광업공단 신규입사자를 위한 직무 적응 가이드를 제작 중임
+[요청] 공공기관 직원이 갖추어야 할 핵심 데이터 리터러시 역량 3가지를 도출하고, 
+각 역량별 필요성과 실무 적용 예시를 개조식(Bullet point)으로 작성해줘.
+[조건] 공공기관 보고서 형식에 어울리는 정중하고 격식 있는 어조를 사용할 것.`,
+        checklist: [
+          '위 5줄 프롬프트를 복사하여 Google Gemini에 전송',
+          '동일한 내용을 ChatGPT에 전송',
+          '동일한 내용을 Claude에 전송'
+        ]
+      },
+      {
+        id: 10,
+        moduleId: 1,
+        type: 'content',
+        title: '[실습 1-3] 도구별 교차 답변 분석 및 점검표',
+        tag: 'Observation & Findings',
+        contentHtml: `
+          <div class="grid grid-cols-3 gap-3.5 h-full">
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-bold text-emerald-700">ChatGPT 답변 특성</span>
+                <p class="text-xs text-slate-700 mt-1.5 leading-relaxed">개념적이고 논리적인 체계가 잘 잡혀 있으나, 공공기관 특유의 건조한 행정 개조식(~함, ~음)보다는 설명조의 문장이 섞이는 경향이 있음.</p>
+              </div>
+              <div class="text-[11px] text-slate-500 border-t border-slate-200 pt-1.5 font-mono">구조화: ★★★★☆ | 행정 문체: ★★★☆☆</div>
+            </div>
+            <div class="p-3.5 bg-sky-50 border-2 border-sky-400 rounded-xl flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-bold text-sky-900">Google Gemini 답변 특성</span>
+                <p class="text-xs text-slate-800 mt-1.5 leading-relaxed font-semibold">글머리 기호(불릿)와 볼드 강조가 깔끔하여 가독성이 매우 뛰어남. 데이터 기반 행정의 실제 지표 사례를 가장 발 빠르게 제시함.</p>
+              </div>
+              <div class="text-[11px] text-sky-800 border-t border-sky-200 pt-1.5 font-bold font-mono">가독성: ★★★★★ | 실무성: ★★★★☆</div>
+            </div>
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-bold text-amber-700">Claude 답변 특성</span>
+                <p class="text-xs text-slate-700 mt-1.5 leading-relaxed">문장의 격조와 어휘 선택이 가장 공공기관 기안문에 가까움. 수치 예시보다는 논리적 인과관계를 차분하게 서술하는 문장력이 돋보임.</p>
+              </div>
+              <div class="text-[11px] text-slate-500 border-t border-slate-200 pt-1.5 font-mono">문장력: ★★★★★ | 격식성: ★★★★★</div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 11,
+        moduleId: 1,
+        type: 'content',
+        title: '왜 우리는 Google Gemini 무료 계정을 메인으로 삼는가?',
+        tag: 'M1 Key Takeaways',
+        contentHtml: `
+          <div class="p-5 bg-slate-50 border border-slate-200 rounded-2xl h-full flex flex-col justify-around">
+            <div class="flex items-start space-x-3">
+              <div class="w-8 h-8 rounded-lg bg-sky-500 text-white flex items-center justify-center font-bold text-sm shrink-0">1</div>
+              <div>
+                <h4 class="font-bold text-slate-900 text-sm">추가 예산 및 결제 부담 제로 (0원)</h4>
+                <p class="text-xs text-slate-600 mt-0.5">개인 구글 계정만으로 전 수강생이 끊김 없이 전 실습을 무료로 수행 가능</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-3">
+              <div class="w-8 h-8 rounded-lg bg-teal-500 text-white flex items-center justify-center font-bold text-sm shrink-0">2</div>
+              <div>
+                <h4 class="font-bold text-slate-900 text-sm">공단 업무에 필수적인 실시간 구글 검색 연동</h4>
+                <p class="text-xs text-slate-600 mt-0.5">최신 자원 정책, 광해방지 공법, 원자재 시세를 링크와 함께 정확히 교차 검증</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-3">
+              <div class="w-8 h-8 rounded-lg bg-indigo-500 text-white flex items-center justify-center font-bold text-sm shrink-0">3</div>
+              <div>
+                <h4 class="font-bold text-slate-900 text-sm">독립형 단일 HTML 웹앱 코드 추출 최적화</h4>
+                <p class="text-xs text-slate-600 mt-0.5">사내 보안에 위배되지 않는 브라우저 로컬 단일 실행형 코드를 누락 없이 깔끔하게 생성</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+
+      // -------------------------------------------------------------
+      // MODULE 2 (12 ~ 22)
+      // -------------------------------------------------------------
+      {
+        id: 12,
+        moduleId: 2,
+        type: 'divider',
+        title: 'M2. 공공기관 AI 보안 수칙 & 실무 프롬프트 5요소',
+        subtitle: '안전하지 않은 AI 활용은 혁신이 아니라 리스크다',
+        badge: '공공 데이터 보호 · 프롬프트 5요소 · 표준 기안문 작성'
+      },
+      {
+        id: 13,
+        moduleId: 2,
+        type: 'content',
+        title: '공공기관 임직원 생성형 AI 보안 3대 원칙',
+        tag: 'Security Principles',
+        contentHtml: `
+          <div class="grid grid-cols-3 gap-3.5 h-full">
+            <div class="p-4 bg-rose-50 border-2 border-rose-300 rounded-2xl flex flex-col justify-between">
+              <div>
+                <div class="text-rose-600 font-bold text-lg mb-1">원칙 1</div>
+                <h4 class="font-bold text-slate-900 text-sm">비공개 업무 데이터 입력 금지</h4>
+                <p class="text-xs text-slate-700 mt-1.5 leading-relaxed">사내 내부 기안문 초안, 감사 자료, 비공개 광산 안전진단 결과, 미공개 사업 계획 등</p>
+              </div>
+              <div class="text-[11px] font-bold text-rose-800 bg-rose-100 px-2 py-0.5 rounded">🚫 절대 외부 LLM 입력 금지</div>
+            </div>
+            <div class="p-4 bg-rose-50 border-2 border-rose-300 rounded-2xl flex flex-col justify-between">
+              <div>
+                <div class="text-rose-600 font-bold text-lg mb-1">원칙 2</div>
+                <h4 class="font-bold text-slate-900 text-sm">개인 식별 정보 입력 금지</h4>
+                <p class="text-xs text-slate-700 mt-1.5 leading-relaxed">성명, 주민등록번호, 휴대전화번호, 이메일, 계좌번호 등 개인을 특정할 수 있는 정보</p>
+              </div>
+              <div class="text-[11px] font-bold text-rose-800 bg-rose-100 px-2 py-0.5 rounded">🚫 개인정보보호법 엄격 준수</div>
+            </div>
+            <div class="p-4 bg-emerald-50 border-2 border-emerald-400 rounded-2xl flex flex-col justify-between">
+              <div>
+                <div class="text-emerald-700 font-bold text-lg mb-1">원칙 3</div>
+                <h4 class="font-bold text-slate-900 text-sm">가명화(Masking) 필수 적용</h4>
+                <p class="text-xs text-slate-700 mt-1.5 leading-relaxed">구체적 명칭 대신 'A광산', 'OO사업소', '홍OO 대리' 형태로 치환하여 구조만 질의</p>
+              </div>
+              <div class="text-[11px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">✅ 안전한 우회 질의 기법</div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 14,
+        moduleId: 2,
+        type: 'content',
+        title: '절대 입력하면 안 되는 데이터 vs 활용 가능한 데이터',
+        tag: 'Compliance Checklist',
+        contentHtml: `
+          <div class="grid grid-cols-2 gap-4 h-full">
+            <div class="p-3.5 bg-rose-50/80 border border-rose-200 rounded-xl">
+              <h4 class="font-bold text-rose-900 text-xs flex items-center gap-1.5 mb-2">
+                <i class="fa-solid fa-ban text-rose-600"></i> 입력 금지 데이터 (위험)
+              </h4>
+              <ul class="space-y-1.5 text-xs text-slate-700 font-medium">
+                <li>• 미공개 해외 핵심광물 지분 투자 계약 조건</li>
+                <li>• 특정 광산 현장조사 행정처분 사전 검토안</li>
+                <li>• 부서원 개인 인사평가 및 징계 관련 기록</li>
+                <li>• 사내 인트라넷 계정/비밀번호, 서버 IP</li>
+              </ul>
+            </div>
+            <div class="p-3.5 bg-emerald-50/80 border border-emerald-200 rounded-xl">
+              <h4 class="font-bold text-emerald-900 text-xs flex items-center gap-1.5 mb-2">
+                <i class="fa-solid fa-circle-check text-emerald-600"></i> 안전 활용 가능 데이터 (허용)
+              </h4>
+              <ul class="space-y-1.5 text-xs text-slate-700 font-medium">
+                <li>• 이미 대외에 배포된 공단 보도자료 및 공개 기사</li>
+                <li>• 법제처에 공개된 광산피해방지법 등 법령</li>
+                <li>• 식별자가 제거된 가상 CSV 통계 샘플</li>
+                <li>• 일반적인 보고서 서식 및 기안문 목차 구조</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 15,
+        moduleId: 2,
+        type: 'content',
+        title: '안전한 데이터 입력 기법: 가명화(Masking)와 템플릿화',
+        tag: 'Data Masking',
+        contentHtml: `
+          <div class="space-y-2.5 h-full flex flex-col justify-around">
+            <div class="p-3 bg-rose-50 border border-rose-300 rounded-xl">
+              <div class="text-xs font-bold text-rose-800 mb-1">❌ 위험한 원문 데이터 (보안 위반)</div>
+              <div class="text-xs text-slate-800 bg-white p-2 rounded border border-rose-200 font-mono">
+                "강원도 태백시 OO광산 김철수 소장(010-9876-5432)의 2026년 3월 복구비 45억 원 집행 내역 및 안전 미비 지적서 검토해줘."
+              </div>
+            </div>
+            <div class="p-3 bg-emerald-50 border border-emerald-300 rounded-xl">
+              <div class="text-xs font-bold text-emerald-900 mb-1">⭕ 가명화된 안전한 데이터 (보안 준수)</div>
+              <div class="text-xs text-slate-800 bg-white p-2 rounded border border-emerald-200 font-mono">
+                "A지역 B사업소 담당자 C의 특정 분기 복구 예산 집행 내역과 일반적인 안전 점검 지적사항 정리 서식을 작성해줘."
+              </div>
+            </div>
+            <div class="text-xs text-slate-700 bg-slate-100 p-2 rounded-lg font-medium">
+              💡 <strong>핵심 팁:</strong> AI에게 '내용'을 넣어서 분석하라고 하지 말고, <strong>'표준 서식과 빈칸 템플릿'을 만들어달라</strong>고 요청하십시오.
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 16,
+        moduleId: 2,
+        type: 'practice',
+        title: '[실습 2-1] 실무 민감 데이터 식별 및 마스킹 변환 훈련',
+        tag: 'Hands-on STEP 3',
+        contextData: `[실무 메모 원문 (사내 비공개 위험 데이터)]
+"원주 본원 자원안보팀 김철수 대리(010-1234-5678).
+ 칠레 리튬 광산 지분 15% 인수 건 관련 비공개 계약서 초안 검토 필요.
+ 총 인수대금은 350억 원 규모이며, 법무법인 세종과 비밀유지협약(NDA) 체결 상태임."
+
+※ 지침: 개인명, 연락처, 국가명, 광종, 지분율, 인수금액을 모두 가명화(Masking)하여 아래 프롬프트로 변환`,
+        prompt: `[역할] 해외 자원개발 투자 계약 전문 법률 자문가
+[상황] 공공기관에서 해외 광물 지분 투자 계약서 초안을 검토하는 상황임
+[요청] 일반적인 해외 광물 지분 인수 계약서(NDA 포함) 검토 시 
+필수적으로 확인해야 할 주요 리스크 점검 체크리스트 5가지를 작성해줘.
+[조건] 특정 국가나 기업명 없이 일반적인 표준 가이드라인 형태로 작성할 것.`,
+        checklist: [
+          '상단 원문의 민감 정보(개인명/연락처/금액) 마스킹 확인',
+          '하단 안전 변환 프롬프트만 복사하여 Gemini에 전송',
+          '결과로 나온 리스크 체크리스트 5개 항목 확인'
+        ]
+      },
+      {
+        id: 17,
+        moduleId: 2,
+        type: 'content',
+        title: '업무 완성도를 결정하는 프롬프트 5요소 (R-C-O-C-F)',
+        tag: '5-Element Framework',
+        contentHtml: `
+          <div class="grid grid-cols-5 gap-3.5 h-full items-stretch">
+            <div class="slide-body-card flex flex-col justify-between text-left p-4 sm:p-5">
+              <div>
+                <span class="px-2.5 py-1 rounded-md bg-sky-100 text-sky-800 text-xs font-black font-mono uppercase tracking-wider">Role</span>
+                <h4 class="text-base sm:text-lg font-black text-slate-900 mt-3 mb-2">1. 역할 부여</h4>
+                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">AI에게 전문적 페르소나와 직급을 명확히 설정</p>
+              </div>
+              <div class="mt-3 p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-600 font-medium">
+                <strong class="text-sky-700 block mb-0.5">예시:</strong>
+                "공공기관 10년 차 수석 기획관으로서"
+              </div>
+            </div>
+
+            <div class="slide-body-card flex flex-col justify-between text-left p-4 sm:p-5">
+              <div>
+                <span class="px-2.5 py-1 rounded-md bg-teal-100 text-teal-800 text-xs font-black font-mono uppercase tracking-wider">Context</span>
+                <h4 class="text-base sm:text-lg font-black text-slate-900 mt-3 mb-2">2. 업무 맥락</h4>
+                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">문서 작성 배경, 수신자, 사전 진행 경과 제시</p>
+              </div>
+              <div class="mt-3 p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-600 font-medium">
+                <strong class="text-teal-700 block mb-0.5">예시:</strong>
+                "수질정화시설 현장 점검 후 본부장 결재용"
+              </div>
+            </div>
+
+            <div class="slide-body-card flex flex-col justify-between text-left p-4 sm:p-5">
+              <div>
+                <span class="px-2.5 py-1 rounded-md bg-indigo-100 text-indigo-800 text-xs font-black font-mono uppercase tracking-wider">Objective</span>
+                <h4 class="text-base sm:text-lg font-black text-slate-900 mt-3 mb-2">3. 핵심 목표</h4>
+                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">도출해야 할 최종 산출물과 해결할 과제 정의</p>
+              </div>
+              <div class="mt-3 p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-600 font-medium">
+                <strong class="text-indigo-700 block mb-0.5">예시:</strong>
+                "긴급 보수공사 추진계획 1-Page 기안문"
+              </div>
+            </div>
+
+            <div class="slide-body-card flex flex-col justify-between text-left p-4 sm:p-5">
+              <div>
+                <span class="px-2.5 py-1 rounded-md bg-amber-100 text-amber-800 text-xs font-black font-mono uppercase tracking-wider">Constraints</span>
+                <h4 class="text-base sm:text-lg font-black text-slate-900 mt-3 mb-2">4. 제약 조건</h4>
+                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">어조, 분량, 미사여구 배제, 보안 마스킹 규칙</p>
+              </div>
+              <div class="mt-3 p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-600 font-medium">
+                <strong class="text-amber-800 block mb-0.5">예시:</strong>
+                "행정 개조식 종결어(~함, ~음), 비공개 수치 가명화"
+              </div>
+            </div>
+
+            <div class="slide-body-card flex flex-col justify-between text-left p-4 sm:p-5">
+              <div>
+                <span class="px-2.5 py-1 rounded-md bg-rose-100 text-rose-800 text-xs font-black font-mono uppercase tracking-wider">Format</span>
+                <h4 class="text-base sm:text-lg font-black text-slate-900 mt-3 mb-2">5. 출력 형식</h4>
+                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">마크다운 표, 불릿 리스트, 표준 공문서 체계</p>
+              </div>
+              <div class="mt-3 p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-600 font-medium">
+                <strong class="text-rose-800 block mb-0.5">예시:</strong>
+                "추진배경-현황-계획-예산표 순서로 정렬"
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 48,
+        moduleId: 5,
+        type: 'content',
+        title: '웹 화면을 이루는 3대 요소 초간단 이해',
+        tag: 'Web Fundamentals',
+        contentHtml: `
+          <div class="grid grid-cols-3 gap-5 h-full items-stretch">
+            <div class="slide-body-card flex flex-col justify-between">
+              <div>
+                <span class="text-2xl font-black text-rose-500">&lt;/&gt;</span>
+                <h4 class="text-xl mt-2">HTML (뼈대)</h4>
+                <p class="text-base text-slate-700 leading-relaxed">화면에 들어갈 정보와 구조를 담당합니다.<br>(제목, 버튼, 표, 입력창, 이미지 등 요소 정의)</p>
+              </div>
+              <div class="text-xs font-mono font-bold text-slate-500 bg-slate-100 p-2 rounded-lg">역할: Structure (구조)</div>
+            </div>
+            <div class="slide-body-card flex flex-col justify-between">
+              <div>
+                <span class="text-2xl font-black text-sky-500">{ }</span>
+                <h4 class="text-xl mt-2">CSS (스타일)</h4>
+                <p class="text-base text-slate-700 leading-relaxed">디자인과 시각적 배치를 담당합니다.<br>(공단 딥네이비 색상, 둥근 모서리, 여백, 반응형 레이아웃)</p>
+              </div>
+              <div class="text-xs font-mono font-bold text-slate-500 bg-slate-100 p-2 rounded-lg">역할: Presentation (표현)</div>
+            </div>
+            <div class="slide-body-card flex flex-col justify-between">
+              <div>
+                <span class="text-2xl font-black text-amber-500">f(x)</span>
+                <h4 class="text-xl mt-2">JavaScript (동작)</h4>
+                <p class="text-base text-slate-700 leading-relaxed">클릭 반응과 연산 두뇌를 담당합니다.<br>(버튼 클릭 시 데이터 계산, 로컬 저장, 검색 실시간 필터링)</p>
+              </div>
+              <div class="text-xs font-mono font-bold text-slate-500 bg-slate-100 p-2 rounded-lg">역할: Interaction (상호작용)</div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 52,
+        moduleId: 5,
+        type: 'practice',
+        title: '[실습 5-1] Gemini에게 첫 번째 단일 HTML 파일 요청하기',
+        tag: 'Hands-on STEP 14',
+        prompt: `[역할] 웹 프론트엔드 전문 개발자
+[요청] 한국광해광업공단 신규입사자를 위한 '오늘의 업무 다짐 생성기' 웹앱을 만들어줘.
+
+[기능 요건]
+- 화면 중앙에 멋진 카드 형태의 UI 배치 (공단 상징 딥블루 테마)
+- [업무 다짐 뽑기] 버튼을 누를 때마다 사내 안전, 청렴, 혁신과 관련된 멋진 문구가 랜덤으로 바뀜
+
+[기술 요건]
+- 외부 파일 링크 없이 HTML, CSS, JavaScript가 모두 포함된 완전한 '단일 HTML 파일'로 작성할 것
+- 설명은 생략하고 코드블록 하나로 전체 소스코드를 완결해줘.`,
+        checklist: [
+          '프롬프트 복사 후 Gemini 전송',
+          '코드블록 전체 코드 출력 확인'
+        ]
+      },
+      {
+        id: 53,
+        moduleId: 5,
+        type: 'practice',
+        title: '[실습 5-2] 윈도우 메모장에서 UTF-8로 저장하고 실행하기',
+        tag: 'Hands-on STEP 15',
+        isGuide: true,
+        guide: `[윈도우 메모장 저장 및 브라우저 실행 순서]
+1단계: Gemini 답변의 코드 블록 우측 상단 [코드 복사(Copy code)] 버튼을 클릭합니다.
+2단계: 윈도우 시작 메뉴에서 [메모장(Notepad)]을 실행합니다.
+3단계: 빈 메모장 창에 'Ctrl + V'로 붙여넣습니다.
+4단계: 메모장 메뉴 [파일] -> [다른 이름으로 저장]을 클릭합니다.
+5단계: 파일 이름을 'hello.html'로 입력합니다. (주의: 뒤에 .txt가 붙지 않도록 할 것)
+6단계: 인코딩 항목을 창 하단에서 반드시 'UTF-8'로 선택한 뒤 [저장]합니다.
+7단계: 바탕화면에 생성된 'hello.html' 파일을 더블클릭하여 Chrome 브라우저에서 실행합니다!`,
+        checklist: [
+          '메모장 저장 완료 (hello.html)',
+          '인코딩 UTF-8 확인 완료',
+          'Chrome 브라우저에서 화면 정상 오픈 확인'
+        ]
+      },
+      {
+        id: 54,
+        moduleId: 5,
+        type: 'practice',
+        title: '[실습 5-3] 자연어 대화로 UI 및 문구 실시간 수정하기',
+        tag: 'Hands-on STEP 16',
+        prompt: `방금 작성해준 코드에 다음 2가지 사항을 추가해서 전체 HTML 코드를 다시 줘:
+
+1. 화면 우측 상단에 현재 날짜와 시간(초 단위)이 실시간으로 흐르는 디지털 시계를 넣어줘.
+2. 버튼 아래에 [화면 캡처 안내]라는 작은 버튼을 추가하고 누르면 '오늘도 안전한 하루 되세요!' 팝업창을 띄워줘.
+
+설명 없이 완성된 단일 HTML 전체 코드로 출력해줘.`,
+        checklist: [
+          'Gemini에 수정 프롬프트 전송',
+          '새 코드를 복사하여 메모장에 덮어쓰기',
+          '브라우저에서 새로고침(F5)하여 시계와 새 버튼 확인'
+        ]
+      },
+      {
+        id: 55,
+        moduleId: 5,
+        type: 'content',
+        title: '바이브코딩 전용 프롬프트 매직 키워드 4가지',
+        tag: 'Magic Keywords',
+        contentHtml: `
+          <div class="space-y-2.5 h-full flex flex-col justify-around">
+            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+              <span class="text-xs font-bold text-sky-700">키워드 1: "단일 HTML 파일 (Single-File HTML)"</span>
+              <p class="text-xs text-slate-700 mt-0.5">CSS와 JS를 별도 파일로 쪼개지 않고 하나로 합치도록 강제함</p>
+            </div>
+            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+              <span class="text-xs font-bold text-teal-700">키워드 2: "CDN 라이브러리 활용"</span>
+              <p class="text-xs text-slate-700 mt-0.5">Chart.js나 Tailwind를 설치 없이 한 줄의 인터넷 링크로 로드하도록 지시</p>
+            </div>
+            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+              <span class="text-xs font-bold text-purple-700">키워드 3: "설명 생략, 전체 코드 출력"</span>
+              <p class="text-xs text-slate-700 mt-0.5">장황한 해설로 인해 코드가 중간에 뚝 끊기는 토큰 초과 현상 원천 방지</p>
+            </div>
+            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+              <span class="text-xs font-bold text-emerald-700">키워드 4: "로컬 환경 구동 (No Backend)"</span>
+              <p class="text-xs text-slate-700 mt-0.5">외부 API 키 없이 브라우저 자체 메모리와 자바스크립트로만 작동하도록 보장</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 56,
+        moduleId: 5,
+        type: 'content',
+        title: 'Module 5 정리: 기초 테스트 완료, 이제 실무 도구로!',
+        tag: 'M5 Wrap-up',
+        contentHtml: `
+          <div class="p-5 bg-slate-50 border border-slate-200 rounded-2xl h-full flex flex-col justify-around">
+            <h4 class="font-bold text-slate-900 text-sm">🎯 바이브코딩 기초 사이클 마스터 완료</h4>
+            <div class="space-y-1.5 text-xs text-slate-700 font-medium">
+              <p>• 바이브코딩은 코딩 실력이 아니라 명확한 업무 기획과 요구사항 정의로 완성된다.</p>
+              <p>• 단일 HTML은 공공기관 보안 환경에 가장 완벽한 프로토타입 도구다.</p>
+              <p>• [프롬프트 요청 → 메모장 UTF-8 저장 → 브라우저 새로고침] 루틴 체화 완료!</p>
+            </div>
+            <div class="p-2.5 bg-blue-100 text-blue-950 rounded-xl text-xs font-bold">
+              🛠️ 6교시 & 7교시: 신입사원 업무지원 도구와 현장점검 대시보드 2종을 본격 제작합니다!
+            </div>
+          </div>
+        `
+      },
+
+      // -------------------------------------------------------------
+      // MODULE 6 (57 ~ 68)
+      // -------------------------------------------------------------
+      {
+        id: 57,
+        moduleId: 6,
+        type: 'divider',
+        title: 'M6. [실습 1] 사내 Q&A 및 업무지원 웹앱 구축',
+        subtitle: '선배에게 묻기 전에 내가 먼저 확인하는 나만의 스마트 행정 도우미',
+        badge: '실시간 FAQ 검색 · 공문 인사말 자동 복사기 · faq_helper.html'
+      },
+      {
+        id: 58,
+        moduleId: 6,
+        type: 'content',
+        title: '웹앱 1 기획: 기능 명세 및 화면 와이어프레임',
+        tag: 'App 1 Specification',
+        contentHtml: `
+          <div class="grid grid-cols-2 gap-4 h-full">
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
+              <h4 class="font-bold text-xs text-slate-900">핵심 기능 명세</h4>
+              <ul class="text-xs text-slate-700 space-y-1 font-medium">
+                <li>1. <strong>실시간 FAQ 검색:</strong> 타이핑 즉시 규정 카드 필터링</li>
+                <li>2. <strong>주요 규정 4종 내장:</strong> 휴가, 국내 여비, 유연근무, 복지</li>
+                <li>3. <strong>원클릭 문구 복사:</strong> 공문 서두/결미 클립보드 복사</li>
+                <li>4. <strong>예외 처리:</strong> 없는 검색어 입력 시 안내 문구 표출</li>
+              </ul>
+            </div>
+            <div class="p-3.5 bg-slate-900 text-slate-200 rounded-xl flex flex-col justify-between text-[11px] font-mono">
+              <div class="border-b border-slate-700 pb-1.5 flex justify-between">
+                <span>[스마트 사내 행정 도우미]</span>
+                <span class="text-teal-400 font-bold">KOMIR Helper</span>
+              </div>
+              <div class="p-2 bg-slate-800 rounded border border-slate-700 text-slate-400">🔍 규정 검색어 입력... (예: 휴가, 여비)</div>
+              <div class="grid grid-cols-2 gap-2">
+                <div class="p-2 bg-slate-800 rounded border border-slate-700">📄 경조사 휴가 규정</div>
+                <div class="p-2 bg-slate-800 rounded border border-slate-700">📋 공문 서두 [복사]</div>
+              </div>
+              <div class="text-right text-slate-400 text-[10px]">파일명: faq_helper.html</div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 59,
+        moduleId: 6,
+        type: 'practice',
+        title: '[실습 6-1] 기본 레이아웃 및 사내 FAQ 데이터 내장 코드 요청',
+        tag: 'Hands-on STEP 17',
+        prompt: `[역할] 시니어 웹 UI/UX 개발자
+[목표] 한국광해광업공단 신입사원 전용 '스마트 사내 행정 도우미' 단일 HTML 웹앱 제작
+
+[요구사항]
+1. 디자인: 모던한 카드형 UI, 신뢰감을 주는 네이비(#1E3A8A)와 화이트 톤 테마
+2. 검색창: 상단에 검색 입력창 배치. 검색어를 타이핑하면 아래 FAQ 카드가 실시간으로 필터링됨
+3. FAQ 데이터(자바스크립트 객체 배열로 내장):
+   - 경조사 휴가: 본인 결혼 5일, 자녀 결혼 1일, 부모 사망 5일
+   - 국내 여비 기준: 일비 2.5만원, 식비 2.5만원, 숙박비 실비 지원
+   - 유연근무제: 시차출퇴근제(07시~10시 출근), 코어타임 10:00~15:00
+   - 사내 동호회: 최소 5인 이상 구성 시 월 활동비 지원
+4. 기술제약: 외부 서버 호출 없는 단일 HTML 파일로 작성. 설명 없이 전체 코드만 제공.`,
+        checklist: [
+          '프롬프트 전송 및 코드 생성 확인',
+          '메모장에 붙여넣고 faq_helper.html (UTF-8)로 저장',
+          '브라우저에서 열어 기본 레이아웃 확인'
+        ]
+      },
+      {
+        id: 60,
+        moduleId: 6,
+        type: 'practice',
+        title: '[실습 6-2] 브라우저 실행 및 실시간 검색 필터링 동작 확인',
+        tag: 'Hands-on STEP 18',
+        isGuide: true,
+        guide: `[웹앱 1 브라우저 기능 동작 테스트 가이드]
+1단계: 브라우저에서 'faq_helper.html' 화면을 엽니다.
+2단계: 상단 검색창에 '휴가'를 입력합니다. -> 경조사 휴가 카드만 화면에 남는지 확인합니다.
+3단계: 검색창에 '여비'를 입력합니다. -> 국내 여비 기준 카드만 남는지 확인합니다.
+4단계: 글자를 모두 지웠을 때 4개의 카드가 다시 모두 표시되는지 확인합니다.
+5단계: 미등록 단어(예: '비트코인')를 쳐보고 현재 상태의 반응을 확인합니다.`,
+        checklist: [
+          '키워드 실시간 필터링 정상 작동 확인',
+          '검색어 삭제 시 카드 복원 확인'
+        ]
+      },
+      {
+        id: 61,
+        moduleId: 6,
+        type: 'practice',
+        title: '[실습 6-3] 원클릭 공문 인사말 복사 버튼 기능 추가',
+        tag: 'Hands-on STEP 19',
+        prompt: `방금 만든 faq_helper.html 코드의 우측에 [자주 쓰는 업무 문구] 섹션을 추가해줘.
+다음 3개의 문구 카드를 넣고, 각 카드마다 [클립보드 복사] 버튼을 달아줘:
+
+1) 공문 서두: '귀 기관의 무궁한 발전을 기원합니다. 관련 근거에 의거하여 다음과 같이 협조 요청드립니다.'
+2) 점검 일정 통보: '한국광해광업공단 현장 안전점검 일정 및 협조 사항을 아래와 같이 통보하오니 준비하여 주시기 바랍니다.'
+3) 공문 결미: '업무에 적극 협조해 주셔서 감사드리며, 문의사항은 담당자에게 연락 바랍니다.'
+
+버튼을 누르면 브라우저 클립보드에 즉시 복사되고 화면에 '복사되었습니다!' 알림이 뜨게 해줘.
+수정된 전체 단일 HTML 코드를 제공해줘.`,
+        checklist: [
+          'Gemini에 기능 추가 프롬프트 전송',
+          '새 코드를 복사하여 메모장에 덮어쓰기 저장',
+          '새로고침 후 [복사] 버튼 클릭하여 메모장에 Ctrl+V 테스트'
+        ]
+      },
+      {
+        id: 62,
+        moduleId: 6,
+        type: 'practice',
+        title: '[실습 6-4] 공단 브랜드 컬러(Deep Navy, Teal) 리디자인',
+        tag: 'Hands-on STEP 20',
+        prompt: `현재 디자인을 한국광해광업공단의 공공기관 CI 느낌에 맞게 스타일(CSS)을 세련되게 다듬어줘.
+- 메인 헤더: 딥 네이비(#0F172A) 그라데이션 배경
+- 포인트 컬러: 친환경 광해방지를 상징하는 틸 그린(#0D9488) 색상
+- 카드 스타일: 부드러운 그림자(box-shadow)와 둥근 모서리(border-radius: 12px)
+- 마우스 호버 효과: 카드 위에 마우스를 올리면 살짝 위로 떠오르는 애니메이션 추가
+전체 단일 HTML 코드를 다시 제공해줘.`,
+        checklist: [
+          '스타일 개선 코드 요청 및 저장',
+          '마우스 호버 애니메이션 및 공단 컬러 반영 확인'
+        ]
+      },
+      {
+        id: 63,
+        moduleId: 6,
+        type: 'practice',
+        title: '[실습 6-5] 미등록 질문 대응 및 담당자 연결 안내 구현',
+        tag: 'Hands-on STEP 21',
+        prompt: `검색창에 FAQ에 등록되지 않은 단어(예: '비트코인', '우주선')를 입력했을 때,
+화면에 '일치하는 규정이 없습니다. 관련 부서(경영지원처 내선 1234)로 문의하시기 바랍니다.'라는
+깔끔한 안내 카드가 표시되도록 검색 로직을 보완해줘.
+전체 단일 HTML 코드를 줘.`,
+        checklist: [
+          '예외 처리 코드 저장 및 새로고침',
+          '없는 단어 검색 시 친절한 안내 문구 표출 확인'
+        ]
+      },
+      {
+        id: 64,
+        moduleId: 6,
+        type: 'practice',
+        title: '[실습 6-6] 단축키 지원 및 모바일 반응형 UI 최적화',
+        tag: 'Hands-on STEP 22',
+        prompt: `마지막으로 2가지 편의 기능을 추가해줘:
+1. 사용자가 키보드 어디서든 '/' 키를 누르면 검색창으로 바로 포커스가 이동하게 해줘.
+2. 스마트폰이나 태블릿 화면 크기에서도 깨지지 않고 1열로 정렬되는 반응형 모바일 레이아웃을 적용해줘.
+전체 완성 코드를 줘.`,
+        checklist: [
+          '코드 저장 후 새로고침',
+          '키보드 슬래시(/) 키 눌러 검색창 포커스 확인',
+          '브라우저 창 크기를 줄여 1열 반응형 정렬 확인'
+        ]
+      },
+      {
+        id: 65,
+        moduleId: 6,
+        type: 'content',
+        title: '완성된 웹앱 1 코드 해부: 나중에 내가 직접 수정하는 법',
+        tag: 'Code Inspection',
+        contentHtml: `
+          <div class="space-y-2.5 h-full flex flex-col justify-around">
+            <div class="p-3 bg-slate-900 text-slate-200 rounded-xl font-mono text-xs">
+              <span class="text-teal-400 font-bold">// 1. 사내 규정 데이터 위치 (데이터 수정 시 여기를 변경)</span><br>
+              const faqData = [<br>
+              &nbsp;&nbsp;{ title: "경조사 휴가", content: "본인 결혼 5일..." },<br>
+              &nbsp;&nbsp;{ title: "국내 여비", content: "일비 2.5만원..." }<br>
+              ];
+            </div>
+            <div class="p-3 bg-slate-900 text-slate-200 rounded-xl font-mono text-xs">
+              <span class="text-sky-400 font-bold">// 2. 클립보드 복사 함수 (브라우저 표준 API)</span><br>
+              navigator.clipboard.writeText(text).then(() => showToast());
+            </div>
+            <div class="text-xs text-slate-700 bg-slate-100 p-2 rounded-lg font-medium">
+              💡 나중에 부서 규정이 바뀌면, 메모장에서 <code class="text-rose-600 font-bold font-mono">faqData</code> 부분의 글자만 찾아 고치고 저장하면 됩니다!
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 66,
+        moduleId: 6,
+        type: 'content',
+        title: '웹앱 1 품질 검증 체크리스트 (5대 요건)',
+        tag: 'Verification',
+        contentHtml: `
+          <div class="p-5 bg-slate-50 border border-slate-200 rounded-2xl h-full flex flex-col justify-around">
+            <div class="flex items-center space-x-3">
+              <i class="fa-solid fa-circle-check text-emerald-500 text-sm"></i>
+              <span class="text-xs text-slate-800 font-bold">1. 키워드 타이핑 시 실시간으로 카드 필터링이 정상 작동하는가?</span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <i class="fa-solid fa-circle-check text-emerald-500 text-sm"></i>
+              <span class="text-xs text-slate-800 font-bold">2. 공문 인사말 버튼 클릭 시 클립보드에 정확히 복사되는가?</span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <i class="fa-solid fa-circle-check text-emerald-500 text-sm"></i>
+              <span class="text-xs text-slate-800 font-bold">3. 미등록 단어 검색 시 안내 메시지가 노출되는가?</span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <i class="fa-solid fa-circle-check text-emerald-500 text-sm"></i>
+              <span class="text-xs text-slate-800 font-bold">4. 슬래시(/) 단축키로 검색창에 즉시 커서가 이동하는가?</span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <i class="fa-solid fa-circle-check text-emerald-500 text-sm"></i>
+              <span class="text-xs text-slate-800 font-bold">5. 공단 테마 컬러(Navy & Teal)가 조화롭게 반영되었는가?</span>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 67,
+        moduleId: 6,
+        type: 'content',
+        title: '현업 확장을 위한 아이디어: 부서별 맞춤 도구 개조',
+        tag: 'Department Adaptation',
+        contentHtml: `
+          <div class="grid grid-cols-3 gap-3 h-full">
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
+              <div class="text-xs font-bold text-sky-700">광해복구처</div>
+              <h4 class="font-bold text-slate-900 text-xs">광해방지 표준 시방서 도우미</h4>
+              <p class="text-xs text-slate-600">토양개량, 수질정화 공법별 주요 설계 기준 및 검사항목 검색기로 개조</p>
+            </div>
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
+              <div class="text-xs font-bold text-teal-700">자원안보처</div>
+              <h4 class="font-bold text-slate-900 text-xs">핵심광물 비축 규정 도우미</h4>
+              <p class="text-xs text-slate-600">비축 광종별 방출 기준, 입고 절차, 품질 검사 기준 원클릭 조회기로 개조</p>
+            </div>
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
+              <div class="text-xs font-bold text-indigo-700">안전경영실</div>
+              <h4 class="font-bold text-slate-900 text-xs">비상대응 프로토콜 도우미</h4>
+              <p class="text-xs text-slate-600">광산 붕괴, 수질 누출 시 단계별 조치 요령 및 유관기관 연락처 원클릭 복사기</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 68,
+        moduleId: 6,
+        type: 'content',
+        title: 'Module 6 산출물 점검 완료 (산출물 3 확보)',
+        tag: 'M6 Wrap-up',
+        contentHtml: `
+          <div class="p-5 bg-slate-50 border border-slate-200 rounded-2xl h-full flex flex-col justify-around">
+            <h4 class="font-bold text-slate-900 text-sm">🎉 산출물 3 확보 완료</h4>
+            <div class="p-3 bg-emerald-100 text-emerald-950 rounded-xl text-xs font-mono font-bold flex items-center justify-between">
+              <span>📄 파일명: faq_helper.html</span>
+              <span>용량: 약 15KB (단일 파일)</span>
+            </div>
+            <p class="text-xs text-slate-700 leading-relaxed">
+              별도의 데이터베이스나 서버 없이, 파일 하나에 모든 검색 로직과 복사 기능이 완비되었습니다. 바탕화면에 안전하게 보관하십시오.
+            </p>
+            <div class="p-2.5 bg-teal-100 text-teal-950 rounded-xl text-xs font-bold">
+              📊 다음 7교시: 데이터를 입력하고 차트로 실시간 시각화하는 '안전점검 대시보드' 제작에 도전합니다!
+            </div>
+          </div>
+        `
+      },
+
+      // -------------------------------------------------------------
+      // MODULE 7 (69 ~ 80)
+      // -------------------------------------------------------------
+      {
+        id: 69,
+        moduleId: 7,
+        type: 'divider',
+        title: 'M7. [실습 2] 현장점검 체크리스트 & 대시보드 구축',
+        subtitle: '현장 데이터 입력 → 로컬 영구 저장 → 실시간 통계 및 차트 시각화',
+        badge: 'LocalStorage 연동 · Chart.js 시각화 · 엑셀 CSV 내보내기 · safety_dashboard.html'
+      },
+      {
+        id: 70,
+        moduleId: 7,
+        type: 'content',
+        title: '웹앱 2 기획: 3대 핵심 컴포넌트 구조',
+        tag: 'App 2 Architecture',
+        contentHtml: `
+          <div class="grid grid-cols-3 gap-3 h-full">
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-bold text-sky-600">COMPONENT 1</span>
+                <h4 class="font-bold text-slate-900 text-xs mt-1">상단 KPI 요약 카드</h4>
+                <p class="text-xs text-slate-600 mt-1.5">총 점검 건수, 정상 시설, 주의/긴급 시설 카운터 실시간 자동 계산</p>
+              </div>
+              <div class="text-[11px] text-slate-400 font-bold">실시간 통계 집계</div>
+            </div>
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-bold text-teal-600">COMPONENT 2</span>
+                <h4 class="font-bold text-slate-900 text-xs mt-1">좌측 점검 입력 폼</h4>
+                <p class="text-xs text-slate-600 mt-1.5">사업소 선택, 점검일자, 점검자, 상태(정상/주의/긴급), 지적사항 입력창</p>
+              </div>
+              <div class="text-[11px] text-slate-400 font-bold">데이터 입력 UI</div>
+            </div>
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-bold text-indigo-600">COMPONENT 3</span>
+                <h4 class="font-bold text-slate-900 text-xs mt-1">우측 이력 표 & 차트</h4>
+                <p class="text-xs text-slate-600 mt-1.5">누적 점검 목록, Chart.js 도넛 차트 시각화, [CSV 엑셀 다운로드] 버튼</p>
+              </div>
+              <div class="text-[11px] text-slate-400 font-bold">시각화 & 데이터 내보내기</div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 71,
+        moduleId: 7,
+        type: 'practice',
+        title: '[실습 7-1] 현장점검 입력 폼 생성 프롬프트',
+        tag: 'Hands-on STEP 23',
+        prompt: `[역할] 풀스택 웹 애플리케이션 개발자
+[목표] 한국광해광업공단 '광해방지시설 현장점검 관리 대시보드' 단일 HTML 웹앱 제작
+
+[화면 구성]
+1. 상단: '한국광해광업공단 시설안전 관리시스템' 타이틀 및 헤더
+2. 좌측 패널 (입력 폼):
+   - 사업소 선택 (정선A시설, 문경B시설, 화순C시설, 태백D시설 드롭다운)
+   - 점검일자 (날짜 선택 피커)
+   - 점검자 성명 (텍스트 입력)
+   - 점검 결과 (정상 / 주의 / 긴급 라디오 버튼)
+   - 주요 지적사항 (텍스트 입력창)
+   - [점검 결과 등록] 버튼
+3. 우측 패널: 등록된 점검 목록을 보여주는 반응형 데이터 테이블
+[기술제약] 단일 HTML 파일로 작성, 외부 서버 호출 금지, 설명 없이 전체 코드 출력.`,
+        checklist: [
+          '프롬프트 전송 및 코드 생성 확인',
+          'safety_dashboard.html 로 저장 (UTF-8)',
+          '브라우저에서 열어 입력 폼과 테이블 배치 확인'
+        ]
+      },
+      {
+        id: 72,
+        moduleId: 7,
+        type: 'practice',
+        title: '[실습 7-2] 등록 데이터 누적 테이블 및 삭제 기능 확인',
+        tag: 'Hands-on STEP 24',
+        isGuide: true,
+        guide: `[현장점검 대시보드 입력 및 인터랙션 테스트 순서]
+1단계: 브라우저에서 'safety_dashboard.html'을 엽니다.
+2단계: 사업소를 '강원 정선 A정화시설'로 선택합니다.
+3단계: 점검일자를 오늘로 두고, 점검자에 본인 이름을 입력합니다.
+4단계: 상태를 '주의'로 선택하고 지적사항에 '배관 미세 누수 점검 완료'를 적은 뒤 [등록] 버튼 클릭!
+5단계: 우측 테이블에 방금 등록한 데이터가 실시간으로 추가되는지 확인합니다.
+6단계: 추가된 행 우측의 [삭제] 버튼을 눌러 삭제도 잘 되는지 확인합니다.`,
+        checklist: [
+          '데이터 1건 등록 성공 확인',
+          '테이블 동적 추가 렌더링 확인',
+          '삭제 버튼 동작 확인'
+        ]
+      },
+      {
+        id: 73,
+        moduleId: 7,
+        type: 'content',
+        title: '브라우저 LocalStorage: 새로고침해도 안 지워지는 마법',
+        tag: 'Browser Storage',
+        contentHtml: `
+          <div class="grid grid-cols-2 gap-4 h-full">
+            <div class="p-3.5 bg-rose-50 border border-rose-200 rounded-xl">
+              <h4 class="font-bold text-rose-900 text-xs">일반 자바스크립트 변수의 한계</h4>
+              <p class="text-xs text-slate-700 mt-1.5 leading-relaxed">
+                데이터를 변수(Array)에만 담아두면, 사용자가 실수로 <code class="text-rose-600 font-bold">F5 (새로고침)</code>를 누르거나 브라우저 창을 닫는 순간 
+                입력했던 모든 점검 기록이 허공으로 날아감.
+              </p>
+            </div>
+            <div class="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl">
+              <h4 class="font-bold text-emerald-900 text-xs">LocalStorage의 강력함</h4>
+              <p class="text-xs text-slate-700 mt-1.5 leading-relaxed">
+                사용자 PC 브라우저 내부 하드디스크에 데이터를 JSON 문자열 형태로 영구 보관.
+                <strong>컴퓨터를 껐다 켜도, 브라우저를 다시 열어도 기존 기록이 100% 그대로 유지됨!</strong>
+              </p>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 74,
+        moduleId: 7,
+        type: 'practice',
+        title: '[실습 7-3] LocalStorage 연동으로 영구 데이터 저장 구현',
+        tag: 'Hands-on STEP 25',
+        prompt: `방금 작성한 safety_dashboard.html에 LocalStorage 연동 기능을 추가해줘:
+
+- 사용자가 [점검 결과 등록]을 누르면 브라우저의 localStorage에 JSON 형태로 저장되어야 함
+- 사용자가 브라우저를 새로고침(F5)하거나 창을 닫았다가 다시 열어도 기존 점검 이력이 그대로 표에 유지되어야 함
+- [삭제] 버튼을 누르면 localStorage에서도 해당 데이터가 영구 삭제되어야 함
+
+수정된 전체 단일 HTML 코드를 제공해줘.`,
+        checklist: [
+          '수정 코드 저장 후 새로고침',
+          '데이터 2건 입력 후 브라우저 창 완전히 닫기',
+          '파일을 다시 열었을 때 데이터가 그대로 남아있는지 확인'
+        ]
+      },
+      {
+        id: 75,
+        moduleId: 7,
+        type: 'practice',
+        title: '[실습 7-4] 상단 KPI 요약 카드(카운터) 연동',
+        tag: 'Hands-on STEP 26',
+        prompt: `safety_dashboard.html의 최상단에 3개의 요약 통계(KPI) 카드를 가로로 배치해줘:
+
+1) [총 점검 건수]: 누적 등록된 전체 건수 자동 카운트
+2) [정상 시설]: 상태가 '정상'인 건수 자동 카운트 (그린 컬러)
+3) [주의/긴급 시설]: 상태가 '주의' 또는 '긴급'인 건수 자동 카운트 (레드 경고 컬러)
+
+데이터가 등록되거나 삭제될 때마다 이 3개 카드의 숫자가 실시간으로 즉시 다시 계산되어야 해.
+전체 단일 HTML 코드를 줘.`,
+        checklist: [
+          '코드 저장 및 새로고침',
+          '데이터 추가 시 상단 숫자가 실시간으로 1, 2, 3 증가하는지 확인'
+        ]
+      },
+      {
+        id: 76,
+        moduleId: 7,
+        type: 'practice',
+        title: '[실습 7-5] Chart.js 라이브러리 연동 시각화 차트 추가',
+        tag: 'Hands-on STEP 27',
+        prompt: `우측 데이터 테이블 상단에 Chart.js (CDN 링크: https://cdn.jsdelivr.net/npm/chart.js)를 활용하여
+점검 상태 비율을 보여주는 멋진 [도넛 차트(Doughnut Chart)]를 하나 추가해줘.
+
+- 정상(녹색), 주의(주황색), 긴급(빨간색) 비율이 한눈에 파이 형태로 보여야 함
+- 점검 데이터가 추가되거나 삭제될 때 차트도 실시간으로 다시 그려져야 함
+
+전체 단일 HTML 완성 코드를 출력해줘.`,
+        checklist: [
+          '코드 교체 후 저장 및 새로고침',
+          '화면에 컬러풀한 도넛 차트 노출 확인',
+          '새 데이터 입력 시 차트 비율 실시간 갱신 확인'
+        ]
+      },
+      {
+        id: 77,
+        moduleId: 7,
+        type: 'practice',
+        title: '[실습 7-6] 엑셀 연동을 위한 [CSV 다운로드] 버튼 구현',
+        tag: 'Hands-on STEP 28',
+        prompt: `테이블 상단 우측에 초록색 [엑셀(CSV) 다운로드] 버튼을 하나 만들어줘.
+
+- 이 버튼을 누르면 현재 누적된 모든 점검 이력 데이터가 '광해시설_점검현황_날짜.csv' 파일로 자동 다운로드됨
+- 엑셀에서 열었을 때 한글이 절대 깨지지 않도록 UTF-8 BOM('\\uFEFF') 처리를 반드시 해줄 것
+
+전체 완성 코드를 줘.`,
+        checklist: [
+          '코드 저장 후 새로고침',
+          '[엑셀 다운로드] 버튼 클릭하여 파일 다운로드 확인',
+          '다운로드된 파일을 MS Excel에서 열어 한글 깨짐 없이 표로 열리는지 확인'
+        ]
+      },
+      {
+        id: 78,
+        moduleId: 7,
+        type: 'content',
+        title: '완성된 대시보드 풀 테스트: 종합 동작 시연',
+        tag: 'Full Integration Test',
+        contentHtml: `
+          <div class="grid grid-cols-2 gap-4 h-full">
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
+              <h4 class="font-bold text-xs text-slate-900">5단계 종합 검증 시나리오</h4>
+              <ul class="text-xs text-slate-700 space-y-1 font-medium">
+                <li>1. 정선, 문경, 화순 시설 3건 연속 등록</li>
+                <li>2. 상단 KPI 카드: 총 3건, 주의 2건 정상 집계 확인</li>
+                <li>3. 도넛 차트: 주황색 비율 66.7% 시각화 확인</li>
+                <li>4. 브라우저 새로고침(F5) 후에도 3건 온전 유지 확인</li>
+                <li>5. [엑셀 다운로드] 클릭 후 엑셀 정상 열람 확인</li>
+              </ul>
+            </div>
+            <div class="p-3.5 bg-emerald-50 border border-emerald-300 rounded-xl flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-bold text-emerald-800">TEST RESULT</span>
+                <h4 class="font-bold text-slate-900 text-sm mt-1">ALL TESTS PASSED! 100%</h4>
+                <p class="text-xs text-slate-700 mt-1.5 leading-relaxed font-medium">
+                  프로그래밍 언어를 전혀 몰라도 기획과 프롬프트만으로 완전한 전산 업무 시스템을 구축할 수 있음을 증명했습니다.
+                </p>
+              </div>
+              <div class="text-[11px] font-bold text-emerald-900 bg-emerald-200/60 p-1.5 rounded">
+                산출물 4: safety_dashboard.html 완성
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 79,
+        moduleId: 7,
+        type: 'content',
+        title: '공공 현장 활용 시나리오: 오프라인 모바일 현장점검 도구',
+        tag: 'Field Scenario',
+        contentHtml: `
+          <div class="grid grid-cols-3 gap-3 h-full">
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex flex-col justify-between">
+              <div>
+                <div class="text-sky-600 font-bold text-xs">시나리오 1</div>
+                <h4 class="font-bold text-slate-900 text-xs mt-1">산간 오지 현장 출장</h4>
+                <p class="text-xs text-slate-600 mt-1.5">인터넷이나 LTE가 안 터지는 깊은 폐광산 현장에서도 단일 HTML 파일은 브라우저에서 100% 완벽 구동</p>
+              </div>
+              <div class="text-[11px] text-slate-400 font-bold">오프라인 무중단 구동</div>
+            </div>
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex flex-col justify-between">
+              <div>
+                <div class="text-teal-600 font-bold text-xs">시나리오 2</div>
+                <h4 class="font-bold text-slate-900 text-xs mt-1">태블릿 터치 입력</h4>
+                <p class="text-xs text-slate-600 mt-1.5">공단 공용 태블릿 PC에 파일을 담아가서 터치로 체크박스와 드롭다운을 빠르게 입력</p>
+              </div>
+              <div class="text-[11px] text-slate-400 font-bold">종이 서류 제로화</div>
+            </div>
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex flex-col justify-between">
+              <div>
+                <div class="text-indigo-600 font-bold text-xs">시나리오 3</div>
+                <h4 class="font-bold text-slate-900 text-xs mt-1">본사 원클릭 일괄 취합</h4>
+                <p class="text-xs text-slate-600 mt-1.5">본사 복귀 후 [CSV 다운로드] 버튼 하나로 엑셀을 뽑아 메인 기간계 ERP 시스템에 즉시 업로드</p>
+              </div>
+              <div class="text-[11px] text-slate-400 font-bold">업무 시간 80% 단축</div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 80,
+        moduleId: 7,
+        type: 'content',
+        title: 'Module 7 산출물 점검 완료 (산출물 4 확보)',
+        tag: 'M7 Wrap-up',
+        contentHtml: `
+          <div class="p-5 bg-slate-50 border border-slate-200 rounded-2xl h-full flex flex-col justify-around">
+            <h4 class="font-bold text-slate-900 text-sm">🎉 산출물 4 확보 완료</h4>
+            <div class="p-3 bg-sky-100 text-sky-950 rounded-xl text-xs font-mono font-bold flex items-center justify-between">
+              <span>📊 파일명: safety_dashboard.html</span>
+              <span>기능: 폼 + 로컬저장 + 차트 + 엑셀</span>
+            </div>
+            <p class="text-xs text-slate-700 leading-relaxed font-medium">
+              오늘의 가장 고난도 웹앱 프로토타입을 성공적으로 완수했습니다. 바탕화면에 안전하게 보관하십시오.
+            </p>
+            <div class="p-2.5 bg-amber-100 text-amber-950 rounded-xl text-xs font-bold">
+              🛠️ 마지막 8교시: 혼자 작업할 때 에러를 해결하는 디버깅 기술과 내일부터 실천할 AI 루틴을 정리합니다!
+            </div>
+          </div>
+        `
+      },
+
+      // -------------------------------------------------------------
+      // MODULE 8 (81 ~ 90)
+      // -------------------------------------------------------------
+      {
+        id: 81,
+        moduleId: 8,
+        type: 'divider',
+        title: 'M8. 디버깅 트러블슈팅과 신입사원 AI 루틴 수립',
+        subtitle: '에러가 났을 때 당황하지 않는 비개발자의 디버깅 무기와 지속 가능한 루틴',
+        badge: '4대 빈출 에러 해결 · 상호 피드백 · 1일 1 AI 실천 계획'
+      },
+      {
+        id: 82,
+        moduleId: 8,
+        type: 'content',
+        title: '비개발자 빈출 에러 1: 화면에 코드가 그대로 글자로 보일 때',
+        tag: 'Troubleshooting 1',
+        contentHtml: `
+          <div class="grid grid-cols-2 gap-4 h-full">
+            <div class="p-3.5 bg-rose-50 border border-rose-200 rounded-xl">
+              <span class="text-xs font-bold text-rose-800">증상 및 원인</span>
+              <h4 class="font-bold text-slate-900 text-sm mt-1">파일 확장자가 .html.txt 로 이중 저장됨</h4>
+              <p class="text-xs text-slate-700 mt-1.5 leading-relaxed">
+                윈도우 메모장에서 기본값으로 <code class="text-rose-600 font-bold font-mono">.txt</code> 확장자를 뒤에 강제로 붙여버려, 브라우저가 웹페이지가 아닌 텍스트 문서로 인식함.
+              </p>
+            </div>
+            <div class="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl">
+              <span class="text-xs font-bold text-emerald-900">즉시 해결 조치</span>
+              <h4 class="font-bold text-slate-900 text-sm mt-1">파일 확장명 표시 켜기 & 이름 변경</h4>
+              <p class="text-xs text-slate-800 mt-1.5 leading-relaxed font-medium">
+                1. 파일 탐색기 상단 [보기] -> [표시] -> <strong>[파일 확장명]</strong> 체크 활성화<br>
+                2. 파일 이름 뒤의 <code class="text-rose-600 font-bold font-mono">.txt</code>를 지우고 순수한 <code class="text-emerald-700 font-bold font-mono">.html</code>로 수정 후 엔터
+              </p>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 83,
+        moduleId: 8,
+        type: 'content',
+        title: '비개발자 빈출 에러 2: 한글 글자가 외계어로 깨져 나올 때',
+        tag: 'Troubleshooting 2',
+        contentHtml: `
+          <div class="grid grid-cols-2 gap-4 h-full">
+            <div class="p-3.5 bg-rose-50 border border-rose-200 rounded-xl">
+              <span class="text-xs font-bold text-rose-800">증상 및 원인</span>
+              <h4 class="font-bold text-slate-900 text-sm mt-1">문자 인코딩 불일치 (ANSI vs UTF-8)</h4>
+              <p class="text-xs text-slate-700 mt-1.5 leading-relaxed">
+                메모장에서 저장할 때 과거 방식인 ANSI나 EUC-KR로 저장되어 웹 표준 UTF-8과 충돌하여 한글이 깨짐.
+              </p>
+            </div>
+            <div class="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl">
+              <span class="text-xs font-bold text-emerald-900">즉시 해결 조치</span>
+              <h4 class="font-bold text-slate-900 text-sm mt-1">메모장 UTF-8 저장 & 메타 태그 선언</h4>
+              <p class="text-xs text-slate-800 mt-1.5 leading-relaxed font-medium">
+                1. 메모장 [다른 이름으로 저장] 시 하단 인코딩을 반드시 <strong>'UTF-8'</strong>로 선택<br>
+                2. HTML 코드 상단에 <code class="text-emerald-700 font-bold font-mono">&lt;meta charset="UTF-8"&gt;</code>가 포함되어 있는지 확인
+              </p>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 84,
+        moduleId: 8,
+        type: 'content',
+        title: '비개발자 빈출 에러 3: 코드가 중간에 뚝 잘려 나올 때',
+        tag: 'Troubleshooting 3',
+        contentHtml: `
+          <div class="grid grid-cols-2 gap-4 h-full">
+            <div class="p-3.5 bg-rose-50 border border-rose-200 rounded-xl">
+              <span class="text-xs font-bold text-rose-800">증상 및 잘못된 대처</span>
+              <h4 class="font-bold text-slate-900 text-sm mt-1">토큰 한도 초과 & "이어서 써줘"</h4>
+              <p class="text-xs text-slate-700 mt-1.5 leading-relaxed">
+                코드가 길어져 중간에 끊겼을 때 "이어서 써줘"라고 하면 엉뚱한 위치부터 코드가 출력되어 비개발자가 이어 붙이기 불가능함.
+              </p>
+            </div>
+            <div class="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl">
+              <span class="text-xs font-bold text-emerald-900">마법의 해결 프롬프트</span>
+              <h4 class="font-bold text-slate-900 text-sm mt-1">전체 완결 코드 재요청 지침</h4>
+              <div class="text-xs text-slate-800 bg-white p-2 rounded border border-emerald-300 font-mono mt-1.5 leading-relaxed font-medium">
+                "앞선 설명과 주석은 일체 생략하고, 처음부터 끝까지 완전한 단일 HTML 코드 전체만 하나의 코드블록으로 다시 출력해줘."
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 85,
+        moduleId: 8,
+        type: 'content',
+        title: '비개발자 빈출 에러 4: 버튼을 눌러도 반응이 없을 때 (F12 치트키)',
+        tag: 'Troubleshooting 4',
+        contentHtml: `
+          <div class="space-y-2.5 h-full flex flex-col justify-around">
+            <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+              <h4 class="font-bold text-slate-900 text-xs">비개발자의 비밀 무기: 브라우저 F12 개발자 도구</h4>
+              <p class="text-xs text-slate-700 mt-0.5">화면은 멀쩡한데 버튼이 안 눌리면 자바스크립트 에러가 난 것입니다. 브라우저가 에러 원인을 이미 알고 있습니다.</p>
+            </div>
+            <div class="p-2.5 bg-slate-900 text-slate-200 rounded-xl font-mono text-xs space-y-1">
+              <p>1. 브라우저 창에서 <span class="text-amber-400 font-bold">F12</span> 키를 누릅니다.</p>
+              <p>2. 우측 상단의 <span class="text-sky-400 font-bold">[Console]</span> 탭을 클릭합니다.</p>
+              <p>3. 빨간색 글씨로 뜬 에러 메시지를 마우스로 드래그하여 복사합니다.</p>
+            </div>
+            <div class="p-2.5 bg-emerald-50 border border-emerald-300 rounded-xl">
+              <span class="px-2 py-0.5 rounded bg-emerald-200 text-emerald-900 text-[10px] font-bold">에러 해결 전용 프롬프트</span>
+              <div class="text-xs text-slate-800 font-mono font-medium mt-1">
+                "이 에러 메시지가 콘솔에 뜨면서 버튼이 안 눌려: <strong>[복사한 에러 메시지]</strong>. 원인을 찾아서 고쳐진 전체 HTML 코드를 줘."
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 86,
+        moduleId: 8,
+        type: 'practice',
+        title: '[실습 8-1] 옆 동료와 산출물 교차 검증 및 디버깅 훈련',
+        tag: 'Peer Review',
+        isGuide: true,
+        guide: `[동료 산출물 상호 교차 테스트 미션]
+1단계: 본인이 만든 'faq_helper.html'과 'safety_dashboard.html'을 옆자리 동료의 PC로 사내 메신저나 메일로 전송합니다.
+2단계: 동료의 브라우저에서 열어보고 다음 항목을 집중 점검합니다:
+   • 검색창에 빈칸이나 특수문자를 넣었을 때 에러 없이 친절한 안내가 나오는가?
+   • 점검 데이터를 입력하고 브라우저를 껐다 켜도 LocalStorage에 온전히 남아있는가?
+   • [엑셀 CSV 다운로드]를 실행했을 때 동료 PC에서도 한글 깨짐 없이 열리는가?
+3단계: 발견된 사소한 버그나 개선점을 1가지씩 피드백으로 교환합니다.`,
+        checklist: [
+          '동료 PC에서 파일 오픈 성공',
+          '극단적 입력값(특수문자 등) 테스트 수행',
+          '개선 피드백 1건 전달 완료'
+        ]
+      },
+      {
+        id: 87,
+        moduleId: 8,
+        type: 'content',
+        title: '우수 산출물 시연 및 조별 공유회',
+        tag: 'Showcase',
+        contentHtml: `
+          <div class="p-5 bg-slate-50 border border-slate-200 rounded-2xl h-full flex flex-col justify-around">
+            <h4 class="font-bold text-slate-900 text-sm">💡 우수 개조 아이디어 발표 및 강사 피드백</h4>
+            <div class="grid grid-cols-2 gap-3.5">
+              <div class="p-3 bg-white border border-slate-200 rounded-xl">
+                <span class="text-xs font-bold text-sky-700">창의적 아이디어 1조</span>
+                <p class="text-xs text-slate-600 mt-1">FAQ에 신입사원 연차 산정 계산기 기능을 추가하여 직관성 극대화</p>
+              </div>
+              <div class="p-3 bg-white border border-slate-200 rounded-xl">
+                <span class="text-xs font-bold text-teal-700">실용적 아이디어 3조</span>
+                <p class="text-xs text-slate-600 mt-1">현장점검 대시보드에 긴급 항목 발생 시 경고음(Tone.js) 재생 기능 구현</p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-500 font-medium">
+              "중요한 것은 코딩의 화려함이 아니라, 우리 부서의 실제 병목 문제를 얼마나 빠르고 정확하게 풀어냈는가입니다."
+            </p>
+          </div>
+        `
+      },
+      {
+        id: 88,
+        moduleId: 8,
+        type: 'content',
+        title: '신입사원을 위한 "1일 1 AI 실천 루틴" 3단계 로드맵',
+        tag: 'Action Plan',
+        contentHtml: `
+          <div class="grid grid-cols-3 gap-3 h-full">
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-bold text-sky-600">1~2주 차</span>
+                <h4 class="font-bold text-slate-900 text-xs mt-1">개인 생산성 루틴</h4>
+                <p class="text-xs text-slate-600 mt-1.5">이메일 작성 전 Gemini에게 문체 다듬기 요청. 수십 쪽 규정집 요약시키기.</p>
+              </div>
+              <div class="text-[11px] text-slate-400 font-bold">1일 10분 활용</div>
+            </div>
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-bold text-teal-600">3~4주 차</span>
+                <h4 class="font-bold text-slate-900 text-xs mt-1">팀 도구 공유 루틴</h4>
+                <p class="text-xs text-slate-600 mt-1.5">오늘 만든 FAQ 도구에 우리 팀 실무 데이터를 채워 팀원들에게 공유하기.</p>
+              </div>
+              <div class="text-[11px] text-slate-400 font-bold">팀 생산성 기여</div>
+            </div>
+            <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-bold text-indigo-600">2~3개월 차</span>
+                <h4 class="font-bold text-slate-900 text-xs mt-1">프로세스 자동화 루틴</h4>
+                <p class="text-xs text-slate-600 mt-1.5">반복되는 엑셀 취합 업무를 단일 HTML 대시보드로 전환하여 정례보고 시간 80% 단축.</p>
+              </div>
+              <div class="text-[11px] text-indigo-700 font-bold">조직 핵심 인재 도약</div>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 89,
+        moduleId: 8,
+        type: 'content',
+        title: '오늘 8시간 동안 우리가 함께 이뤄낸 것들',
+        tag: 'Final Summary',
+        contentHtml: `
+          <div class="p-5 bg-slate-50 border border-slate-200 rounded-2xl h-full flex flex-col justify-around">
+            <h4 class="font-bold text-slate-900 text-sm">🏆 오늘 확보한 4종의 실무 자산</h4>
+            <div class="space-y-1.5 text-xs text-slate-700 font-medium">
+              <p>✅ <strong>산출물 1:</strong> 3대 LLM 비교 분석표 & 공공 데이터 보안 마스킹 템플릿</p>
+              <p>✅ <strong>산출물 2:</strong> 구글 검색 실시간 연동 기반 1-Page 정책 브리프</p>
+              <p>✅ <strong>산출물 3:</strong> 사내 규정 Q&A 및 공문 인사말 복사기 (<code class="text-rose-600 font-mono font-bold">faq_helper.html</code>)</p>
+              <p>✅ <strong>산출물 4:</strong> 현장 안전점검 체크리스트 & 실시간 대시보드 (<code class="text-rose-600 font-mono font-bold">safety_dashboard.html</code>)</p>
+            </div>
+            <div class="p-2.5 bg-emerald-100 text-emerald-950 rounded-xl text-xs font-bold">
+              🌟 여러분은 단순한 신입사원이 아니라, 공단의 업무를 스스로 혁신하는 솔루션 빌더입니다!
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 90,
+        moduleId: 8,
+        type: 'title',
+        title: '과정 마무리: 질의응답 및 피드백',
+        subtitle: '도구는 계속 진화하지만, 업무 문제를 구조화하는 여러분의 사고력은 영원합니다',
+        badge: '수고 많으셨습니다! 한국광해광업공단에서의 힘찬 첫걸음을 응원합니다.',
+        meta: { instructor: '이승묵 Ph.D (데이터씽킹랩)', contact: 'lee.seungmook@gmail.com', partner: 'EXPERT CONSULTING' }
+      }
+    ];
+
+    let currentSlideIndex = 0;
+
+    document.addEventListener('DOMContentLoaded', initApp);
+    window.addEventListener('load', initApp);
+
+    function initApp() {
+      if (window._appInitialized) return;
+      window._appInitialized = true;
+
+      try {
+        initQuickJump();
+        initTOCModal();
+        renderSlide(0);
+        setupKeyboardShortcuts();
+        setupFullscreenHandlers();
+      } catch (err) {
+        console.error('Initialization error:', err);
+      }
+    }
+
+    function initQuickJump() {
+      const select = document.getElementById('quickJumpSelect');
+      if (!select) return;
+      select.innerHTML = '';
+      SLIDES.forEach((slide, idx) => {
+        const option = document.createElement('option');
+        option.value = idx;
+        option.textContent = `${slide.id}p. ${slide.title.substring(0, 22)}...`;
+        select.appendChild(option);
+      });
+    }
+
+    function initTOCModal() {
+      const tabs = document.getElementById('tocFilterTabs');
+      if (!tabs) return;
+      tabs.innerHTML = `
+        <button onclick="filterTOC('all')" class="px-2.5 py-1 rounded-md bg-sky-600 text-white font-semibold">전체보기 (90)</button>
+      `;
+      MODULES.forEach(m => {
+        const btn = document.createElement('button');
+        btn.onclick = () => filterTOC(m.id);
+        btn.className = 'px-2 py-1 rounded-md bg-slate-800 text-slate-300 hover:bg-slate-700';
+        btn.textContent = `M${m.id} (${m.range[0]}~${m.range[1]}p)`;
+        tabs.appendChild(btn);
+      });
+      renderTOCList('all');
+    }
+
+    function filterTOC(moduleId) {
+      const btns = document.querySelectorAll('#tocFilterTabs button');
+      btns.forEach(b => {
+        b.className = 'px-2 py-1 rounded-md bg-slate-800 text-slate-300 hover:bg-slate-700';
+      });
+      if (window.event && window.event.target) {
+        window.event.target.className = 'px-2.5 py-1 rounded-md bg-sky-600 text-white font-semibold';
+      }
+      renderTOCList(moduleId);
+    }
+
+    function renderTOCList(filter) {
+      const list = document.getElementById('tocSlideList');
+      if (!list) return;
+      list.innerHTML = '';
+      const filtered = filter === 'all' ? SLIDES : SLIDES.filter(s => s.moduleId === filter);
+      
+      filtered.forEach(s => {
+        const card = document.createElement('div');
+        const isCurrent = s.id === (currentSlideIndex + 1);
+        card.className = `p-3 rounded-xl border text-left cursor-pointer transition ${
+          isCurrent 
+            ? 'bg-sky-950/80 border-sky-500 text-white shadow-lg' 
+            : 'bg-slate-800/60 hover:bg-slate-800 border-slate-700 text-slate-300'
+        }`;
+        card.onclick = () => {
+          jumpToSlide(s.id - 1);
+          toggleTOCModal();
+        };
+
+        const typeBadge = s.type === 'title' ? '표지' : (s.type === 'divider' ? '간지' : (s.type === 'practice' ? '실습' : '본문'));
+        const typeColor = s.type === 'practice' ? 'text-amber-400' : (s.type === 'divider' ? 'text-teal-400' : 'text-sky-400');
+
+        card.innerHTML = `
+          <div class="flex items-center justify-between text-[11px] mb-1">
+            <span class="font-bold text-slate-400">#${s.id}</span>
+            <span class="${typeColor} font-semibold">${typeBadge}</span>
+          </div>
+          <div class="text-xs font-bold line-clamp-1">${s.title}</div>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    function toggleTOCModal() {
+      const modal = document.getElementById('tocModal');
+      if (modal) modal.classList.toggle('hidden');
+    }
+
+    function toggleDataHubModal() {
+      const modal = document.getElementById('dataHubModal');
+      if (modal) modal.classList.toggle('hidden');
+    }
+
+    function openDataHubFile() {
+      window.open('sample_data_hub.html', '_blank');
+    }
+
+    function jumpToSlide(index) {
+      const idx = parseInt(index, 10);
+      if (!isNaN(idx) && idx >= 0 && idx < SLIDES.length) {
+        currentSlideIndex = idx;
+        renderSlide(currentSlideIndex);
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlideIndex < SLIDES.length - 1) {
+        currentSlideIndex++;
+        renderSlide(currentSlideIndex);
+      } else {
+        showToast('마지막 슬라이드입니다.');
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlideIndex > 0) {
+        currentSlideIndex--;
+        renderSlide(currentSlideIndex);
+      } else {
+        showToast('첫 번째 슬라이드입니다.');
+      }
+    }
+
+    function renderSlide(index) {
+      const slide = SLIDES[index];
+      const container = document.getElementById('slideContent');
+      if (!container || !slide) return;
+
+      const moduleInfo = MODULES.find(m => m.id === slide.moduleId);
+      
+      // Update indicators
+      const curNum = document.getElementById('currentSlideNum');
+      const totNum = document.getElementById('totalSlideNum');
+      const fsCurNum = document.getElementById('fsCurrentSlideNum');
+      const fsTotNum = document.getElementById('fsTotalSlideNum');
+      const qSelect = document.getElementById('quickJumpSelect');
+      const modTitle = document.getElementById('headerModuleTitle');
+      const pBar = document.getElementById('slideProgressBar');
+
+      if (curNum) curNum.textContent = slide.id;
+      if (totNum) totNum.textContent = SLIDES.length;
+      if (fsCurNum) fsCurNum.textContent = slide.id;
+      if (fsTotNum) fsTotNum.textContent = SLIDES.length;
+      if (qSelect) qSelect.value = index;
+      if (modTitle) modTitle.textContent = moduleInfo ? moduleInfo.title : '한국광해광업공단 신규입사자 AI 교육';
+      
+      if (pBar) {
+        const progressPercent = ((slide.id) / SLIDES.length) * 100;
+        pBar.style.width = `${progressPercent}%`;
+      }
+
+      // 1. Title Slide Template
+      if (slide.type === 'title') {
+        container.innerHTML = `
+          <div class="w-full h-full bg-komir-photo text-white p-8 md:p-14 flex flex-col justify-between relative overflow-hidden">
+            <div class="flex items-center justify-between z-10">
+              <span class="px-3.5 py-1 rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/30 text-xs font-bold tracking-wide">
+                ${slide.badge || '한국광해광업공단'}
+              </span>
+              <span class="text-xs text-slate-300 font-mono tracking-widest uppercase">KOMIR AI WORKSHOP</span>
+            </div>
+
+            <div class="my-auto z-10 max-w-4xl">
+              <div class="h-1.5 w-20 bg-gradient-to-r from-sky-400 to-teal-300 rounded-full mb-6"></div>
+              <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight text-white mb-4 drop-shadow-md">
+                ${slide.title}
+              </h1>
+              <p class="text-base sm:text-lg text-slate-200 font-normal leading-relaxed drop-shadow">
+                ${slide.subtitle}
+              </p>
+            </div>
+
+            <div class="border-t border-slate-700/60 pt-4 flex flex-wrap items-center justify-between text-xs text-slate-300 z-10">
+              <div><strong>강사:</strong> ${slide.meta?.instructor || '이승묵 Ph.D'}</div>
+              <div><strong>운영:</strong> ${slide.meta?.duration || '1일 8시간 (09:00~18:00)'}</div>
+              <div><strong>주관:</strong> ${slide.meta?.partner || 'EXPERT CONSULTING'}</div>
+            </div>
+          </div>
+        `;
+      }
+      // 2. Divider Slide Template (간지)
+      else if (slide.type === 'divider') {
+        container.innerHTML = `
+          <div class="w-full h-full bg-divider-photo text-white p-8 md:p-14 flex flex-col justify-between relative overflow-hidden">
+            <div class="flex items-center justify-between z-10">
+              <span class="px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 border border-teal-400/30 text-xs font-bold">
+                MODULE 0${slide.moduleId}
+              </span>
+              <span class="text-xs text-slate-300 font-mono">STEP 0${slide.moduleId} OF 08</span>
+            </div>
+
+            <div class="my-auto z-10 max-w-4xl">
+              <div class="text-xs sm:text-sm font-extrabold text-teal-300 uppercase tracking-widest mb-2">한국광해광업공단 신규입사자 AI 교육</div>
+              <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight mb-4 drop-shadow-lg">
+                ${slide.title}
+              </h2>
+              <p class="text-base sm:text-lg text-slate-200 drop-shadow">
+                ${slide.subtitle}
+              </p>
+              <div class="mt-6 inline-block px-4 py-2 rounded-xl bg-slate-900/80 border border-slate-700/80 text-xs font-semibold text-slate-200">
+                📌 핵심 목표: ${slide.badge}
+              </div>
+            </div>
+
+            <div class="border-t border-slate-700/50 pt-3 flex justify-between text-xs text-slate-300 z-10">
+              <span>Session Module ${slide.moduleId}</span>
+              <span>8H Hands-on Program</span>
+            </div>
+          </div>
+        `;
+      }
+      // 3. Hands-on Practice Template (실습)
+      else if (slide.type === 'practice') {
+        const isGuideMode = !!slide.isGuide;
+        const hasContext = !!slide.contextData;
+
+        // Visual distinction: AI Prompt box vs Non-Prompt Task Workflow Guide box
+        const badgeIcon = isGuideMode ? 'fa-list-check text-indigo-600' : 'fa-robot text-emerald-600';
+        const badgeBg = isGuideMode ? 'bg-indigo-100 text-indigo-900 border-indigo-300' : 'bg-emerald-100 text-emerald-900 border-emerald-300';
+        const badgeText = isGuideMode ? '실무 수행 및 점검 가이드 (AI 프롬프트 아님)' : 'AI 복사용 실무 프롬프트';
+
+        const mainContentHtml = isGuideMode ? `
+          <!-- Non-Prompt Practical Guide View -->
+          <div class="guide-container-box rounded-xl p-4 sm:p-5 flex flex-col justify-between overflow-hidden relative">
+            <div class="flex items-center justify-between border-b border-indigo-200 pb-2 mb-2 shrink-0">
+              <div class="flex items-center space-x-2 text-xs font-mono">
+                <span class="px-2 py-0.5 rounded bg-indigo-600 text-white font-bold text-[11px] flex items-center gap-1">
+                  <i class="fa-solid fa-person-walking-arrow-right"></i> 직접 수행 절차
+                </span>
+                <span class="text-indigo-900 font-extrabold text-xs sm:text-sm">수강생 로컬 PC / 브라우저 실행 가이드</span>
+              </div>
+              <button onclick="copyPromptText('${encodeURIComponent(slide.guide)}')" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow transition">
+                <i class="fa-regular fa-copy"></i> 가이드 복사
+              </button>
+            </div>
+            <div class="mb-2 px-3 py-1.5 rounded-lg bg-indigo-100/70 border border-indigo-200 text-indigo-900 text-xs font-bold flex items-center gap-2">
+              <i class="fa-solid fa-circle-info text-indigo-600"></i>
+              <span>이 화면은 <strong>AI에 입력하는 프롬프트가 아니라</strong>, 직접 PC 환경에서 수행하는 <strong>단계별 행동 절차</strong>입니다.</span>
+            </div>
+            <pre class="flex-1 overflow-y-auto text-xs sm:text-sm font-sans text-slate-800 leading-relaxed pr-2 whitespace-pre-wrap select-text font-semibold bg-white p-3 rounded-lg border border-slate-200">${escapeHtml(slide.guide)}</pre>
+          </div>
+        ` : `
+          <!-- AI Prompt View (With optional context data card) -->
+          <div class="flex flex-col h-full space-y-2.5 overflow-hidden">
+            ${hasContext ? `
+              <div class="p-3 bg-amber-50/90 border-2 border-amber-300 rounded-xl shrink-0 overflow-y-auto max-h-32 text-xs">
+                <div class="flex items-center justify-between font-bold text-amber-900 mb-1">
+                  <span class="flex items-center gap-1.5"><i class="fa-solid fa-file-lines text-amber-600"></i> 실무 원문 / 참고 데이터 (Context)</span>
+                  <span class="text-[10px] text-amber-800 bg-amber-200 px-1.5 py-0.2 rounded font-normal">AI 입력 전 참고용</span>
+                </div>
+                <pre class="text-[11px] text-slate-800 font-sans whitespace-pre-wrap font-medium">${escapeHtml(slide.contextData)}</pre>
+              </div>
+            ` : ''}
+
+            <div class="prompt-container-box flex-1 rounded-xl p-4 sm:p-5 flex flex-col justify-between overflow-hidden relative">
+              <div class="flex items-center justify-between border-b border-emerald-900/60 pb-2 mb-2 shrink-0">
+                <div class="flex items-center space-x-2 text-xs font-mono">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+                  <span class="ml-2 font-black text-emerald-400 text-xs sm:text-sm flex items-center gap-1.5">
+                    <i class="fa-solid fa-robot"></i> Gemini 복사용 실무 프롬프트 (Click to Copy)
+                  </span>
+                </div>
+                <button onclick="copyPromptText('${encodeURIComponent(slide.prompt)}')" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-lg transition border border-emerald-400/40">
+                  <i class="fa-regular fa-copy"></i> 프롬프트 복사
+                </button>
+              </div>
+              <pre class="flex-1 overflow-y-auto text-xs sm:text-sm font-mono text-emerald-100 leading-relaxed pr-2 whitespace-pre-wrap select-text font-medium">${escapeHtml(slide.prompt)}</pre>
+            </div>
+          </div>
+        `;
+
+        container.innerHTML = `
+          <div class="w-full h-full bg-white text-slate-800 p-6 sm:p-8 flex flex-col justify-between overflow-hidden">
+            <div class="border-b-2 border-slate-200 pb-3 flex items-center justify-between shrink-0">
+              <div class="flex items-center space-x-3">
+                <span class="px-3 py-1 rounded-lg ${badgeBg} text-xs sm:text-sm font-black border flex items-center gap-1.5">
+                  <i class="fa-solid ${badgeIcon}"></i> ${badgeText}
+                </span>
+                <h3 class="text-lg sm:text-2xl font-black text-slate-900 tracking-tight">${slide.title}</h3>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs sm:text-sm px-3 py-1 rounded-lg bg-slate-100 text-slate-700 font-bold font-mono border border-slate-200">${slide.tag || 'Hands-on'}</span>
+              </div>
+            </div>
+
+            <div class="flex-1 my-3 grid grid-cols-1 md:grid-cols-12 gap-4 overflow-hidden">
+              <!-- Left/Center Main Box (8 Cols) -->
+              <div class="md:col-span-8 flex flex-col h-full overflow-hidden">
+                ${mainContentHtml}
+              </div>
+
+              <!-- Checklist Box (4 Cols) -->
+              <div class="md:col-span-4 bg-slate-50 border-2 border-slate-200 rounded-xl p-4 sm:p-5 flex flex-col justify-between overflow-y-auto">
+                <div>
+                  <h4 class="font-black text-xs sm:text-sm text-slate-900 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                    <i class="fa-solid fa-list-check text-sky-600"></i> 실습 진행 체크리스트
+                  </h4>
+                  <ul class="space-y-2.5 mt-2">
+                    ${(slide.checklist || []).map(item => `
+                      <li class="flex items-start space-x-2.5 text-xs sm:text-sm text-slate-800 font-semibold">
+                        <input type="checkbox" class="mt-0.5 w-4 h-4 rounded text-sky-600 border-slate-400 focus:ring-sky-500 cursor-pointer shrink-0">
+                        <span class="leading-snug">${item}</span>
+                      </li>
+                    `).join('')}
+                  </ul>
+                </div>
+                <div class="text-xs text-slate-600 bg-white p-3 rounded-lg border border-slate-200 mt-3 leading-relaxed font-medium">
+                  💡 <strong>실습 팁:</strong> 우측 상단의 <strong class="text-teal-700">[실습 데이터 허브]</strong>를 누르면 5종 샘플 데이터를 즉시 복사하거나 다운로드할 수 있습니다.
+                </div>
+              </div>
+            </div>
+
+            <div class="border-t border-slate-200 pt-2 flex items-center justify-between text-xs text-slate-500 shrink-0">
+              <span class="font-bold">한국광해광업공단 신규입사자 AI 워크숍</span>
+              <span class="font-bold ${isGuideMode ? 'text-indigo-700' : 'text-emerald-700'}">${isGuideMode ? '로컬 PC 브라우저 실습 절차' : 'Gemini 무료 계정 프롬프트 복사 화면'}</span>
+            </div>
+          </div>
+        `;
+      }
+      // 4. General Content Template (본문)
+      else {
+        container.innerHTML = `
+          <div class="w-full h-full bg-white text-slate-800 p-6 sm:p-8 flex flex-col justify-between overflow-hidden">
+            <div class="border-b-2 border-slate-200 pb-3 flex items-center justify-between shrink-0">
+              <div class="flex items-center space-x-3">
+                <span class="px-3 py-1 rounded-lg bg-sky-100 text-sky-800 text-xs sm:text-sm font-black border border-sky-300">Module 0${slide.moduleId}</span>
+                <h3 class="text-lg sm:text-2xl font-black text-slate-900 tracking-tight">${slide.title}</h3>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs sm:text-sm px-3 py-1 rounded-lg bg-slate-100 text-slate-700 font-bold font-mono border border-slate-200">${slide.tag || 'Overview'}</span>
+              </div>
+            </div>
+
+            <div class="flex-1 my-3 overflow-y-auto pr-1">
+              ${slide.contentHtml || '<p class="text-base text-slate-700 font-medium">내용을 불러오는 중입니다.</p>'}
+            </div>
+
+            <div class="border-t border-slate-200 pt-2 flex items-center justify-between text-xs text-slate-500 shrink-0">
+              <span class="font-bold">한국광해광업공단 신규입사자 AI 역량강화</span>
+              <span class="font-bold text-slate-700 font-mono">Slide ${slide.id} / 90</span>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function copyPromptText(encodedPrompt) {
+      const text = decodeURIComponent(encodedPrompt);
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      try {
+        const success = document.execCommand('copy');
+        if (success) {
+          showToast('📋 실무 프롬프트가 복사되었습니다! Gemini에 붙여넣으세요.');
+        } else {
+          showToast('복사에 실패했습니다. 수동으로 복사해주세요.');
+        }
+      } catch (err) {
+        showToast('클립보드 권한이 필요합니다.');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function showToast(msg) {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      toast.className = 'bg-teal-500 text-slate-950 px-4 py-2.5 rounded-xl shadow-2xl text-xs font-black flex items-center space-x-2 animate-toast pointer-events-auto border border-teal-400';
+      toast.innerHTML = `<i class="fa-solid fa-circle-check"></i><span>${msg}</span>`;
+
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 2500);
+    }
+
+    let hudTimer = null;
+
+    function setupFullscreenHandlers() {
+      const handleFullscreenChange = () => {
+        const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+        document.body.classList.toggle('is-fullscreen', isFs);
+        const hud = document.getElementById('fullscreenHud');
+        if (hud) {
+          if (isFs) {
+            hud.classList.remove('hidden');
+            hud.classList.add('flex');
+            showFullscreenHud();
+          } else {
+            hud.classList.add('hidden');
+            hud.classList.remove('flex');
+          }
+        }
+      };
+
+      document.addEventListener('fullscreenchange', handleFullscreenChange);
+      document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+
+      window.addEventListener('mousemove', () => {
+        if (document.body.classList.contains('is-fullscreen')) {
+          showFullscreenHud();
+        }
+      });
+    }
+
+    function showFullscreenHud() {
+      const hud = document.getElementById('fullscreenHud');
+      if (!hud) return;
+      hud.style.opacity = '1';
+      hud.style.pointerEvents = 'auto';
+
+      if (hudTimer) clearTimeout(hudTimer);
+      hudTimer = setTimeout(() => {
+        hud.style.opacity = '0';
+        hud.style.pointerEvents = 'none';
+      }, 2600);
+    }
+
+    function toggleFullScreen() {
+      const isCurrentlyFs = document.body.classList.contains('is-fullscreen') || !!document.fullscreenElement;
+
+      if (!isCurrentlyFs) {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen().then(() => {
+            document.body.classList.add('is-fullscreen');
+            showFullscreenHud();
+          }).catch(() => {
+            // Fallback for environments with iframe restrictions
+            document.body.classList.add('is-fullscreen');
+            const hud = document.getElementById('fullscreenHud');
+            if (hud) {
+              hud.classList.remove('hidden');
+              hud.classList.add('flex');
+              showFullscreenHud();
+            }
+          });
+        } else {
+          document.body.classList.add('is-fullscreen');
+          const hud = document.getElementById('fullscreenHud');
+          if (hud) {
+            hud.classList.remove('hidden');
+            hud.classList.add('flex');
+            showFullscreenHud();
+          }
+        }
+      } else {
+        if (document.fullscreenElement && document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        }
+        document.body.classList.remove('is-fullscreen');
+        const hud = document.getElementById('fullscreenHud');
+        if (hud) {
+          hud.classList.add('hidden');
+          hud.classList.remove('flex');
+        }
+      }
+    }
+
+    function setupKeyboardShortcuts() {
+      document.addEventListener('keydown', (e) => {
+        // Prevent action if in an input/textarea
+        if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
+
+        if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key.toLowerCase() === 'm') {
+          e.preventDefault();
+          toggleTOCModal();
+        } else if (e.key.toLowerCase() === 'd') {
+          e.preventDefault();
+          toggleDataHubModal();
+        } else if (e.key.toLowerCase() === 'p') {
+          e.preventDefault();
+          exportToPDF();
+        } else if (e.key.toLowerCase() === 'f') {
+          e.preventDefault();
+          toggleFullScreen();
+        } else if (e.key === 'Escape') {
+          if (document.body.classList.contains('is-fullscreen')) {
+            toggleFullScreen();
+          }
+        }
+      });
+    }
+
+    function exportToPDF() {
+      showToast('📄 전체 90장 슬라이드를 PDF 인쇄 뷰로 준비 중입니다...');
+      const printBox = document.getElementById('printContainer');
+      if (!printBox) return;
+      printBox.innerHTML = '';
+
+      SLIDES.forEach(s => {
+        const page = document.createElement('div');
+        page.className = 'print-slide-page border-b border-slate-300 mb-8 p-8 bg-white text-slate-900';
+        
+        const badge = s.type === 'title' ? '표지' : (s.type === 'divider' ? '간지' : (s.type === 'practice' ? '실습 실무' : `Module 0${s.moduleId}`));
+        let bodyHtml = '';
+
+        if (s.type === 'title') {
+          bodyHtml = `
+            <div class="my-auto py-12">
+              <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold">${s.badge || '한국광해광업공단'}</span>
+              <h1 class="text-3xl font-black mt-4 mb-3 text-slate-900">${s.title}</h1>
+              <p class="text-base text-slate-600">${s.subtitle || ''}</p>
+            </div>
+          `;
+        } else if (s.type === 'divider') {
+          bodyHtml = `
+            <div class="my-auto py-12">
+              <span class="px-3 py-1 rounded bg-teal-100 text-teal-800 text-xs font-bold">MODULE 0${s.moduleId}</span>
+              <h2 class="text-3xl font-black mt-4 mb-2 text-slate-900">${s.title}</h2>
+              <p class="text-base text-slate-600">${s.subtitle || ''}</p>
+              <div class="mt-4 p-3 bg-slate-50 border border-slate-200 rounded text-xs text-slate-700">핵심 목표: ${s.badge}</div>
+            </div>
+          `;
+        } else if (s.type === 'practice') {
+          const isGuide = !!s.isGuide;
+          bodyHtml = `
+            <div class="my-4">
+              <div class="text-xs font-bold mb-1 ${isGuide ? 'text-indigo-700' : 'text-emerald-700'}">
+                [${isGuide ? '실무 수행 및 점검 가이드 (AI 프롬프트 아님)' : 'AI 복사용 실무 프롬프트'}]
+              </div>
+              ${s.contextData ? `<div class="p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs mb-3 whitespace-pre-wrap font-sans"><strong>[참고 데이터/배경]</strong>\n${escapeHtml(s.contextData)}</div>` : ''}
+              <div class="p-4 ${isGuide ? 'bg-slate-100 text-slate-900 border border-indigo-300 font-sans' : 'bg-slate-900 text-emerald-100 font-mono'} rounded-lg text-xs mb-4 whitespace-pre-wrap">${escapeHtml(isGuide ? s.guide : s.prompt)}</div>
+              <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs">
+                <strong>실습 체크리스트:</strong>
+                <ul class="list-disc ml-5 mt-1 space-y-1">
+                  ${(s.checklist || []).map(c => `<li>${c}</li>`).join('')}
+                </ul>
+              </div>
+            </div>
+          `;
+        } else {
+          bodyHtml = `
+            <div class="my-4 text-xs">
+              ${s.contentHtml || ''}
+            </div>
+          `;
+        }
+
+        page.innerHTML = `
+          <div class="flex justify-between items-center border-b border-slate-200 pb-2 mb-4 text-xs">
+            <span class="font-bold text-sky-800">한국광해광업공단 신규입사자 AI 교육 (8H)</span>
+            <span class="text-slate-500 font-mono">Slide ${s.id} / ${SLIDES.length} (${badge})</span>
+          </div>
+          <div class="flex-1 flex flex-col justify-center">
+            <h3 class="text-xl font-bold text-slate-900 mb-2">${s.title}</h3>
+            ${bodyHtml}
+          </div>
+          <div class="border-t border-slate-200 pt-2 flex justify-between text-[10px] text-slate-500">
+            <span>&copy; 2026 Data Thinking Lab. All rights reserved.</span>
+            <span>메인 실습 도구: Google Gemini 무료 계정</span>
+          </div>
+        `;
+        printBox.appendChild(page);
+      });
+
+      setTimeout(() => {
+        window.print();
+      }, 350);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+  </script>
+</body>
+</html>

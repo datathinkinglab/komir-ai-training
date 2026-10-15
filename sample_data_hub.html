@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>한국광해광업공단 신규입사자 AI 교육 실습 데이터 허브</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Pretendard -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', 'Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace']
+          },
+          colors: {
+            komir: {
+              navy: '#0b192c',
+              dark: '#071220',
+              accent: '#0284c7',
+              teal: '#0d9488',
+              surface: '#f8fafc'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Pretendard', sans-serif;
+      background-color: #0b192c;
+      color: #f1f5f9;
+    }
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    @keyframes toastSlide {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .toast-anim {
+      animation: toastSlide 0.25s ease-out forwards;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col justify-between selection:bg-teal-500 selection:text-white">
+
+  <!-- ============================================================== -->
+  <!-- TOP FRAME: LOGOS & COURSE IDENTITY                             -->
+  <!-- ============================================================== -->
+  <header class="bg-slate-950/90 border-b border-slate-800 backdrop-blur sticky top-0 z-30 px-4 sm:px-6 py-3.5 shrink-0 shadow-md">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+      
+      <!-- Left: Data Thinking Lab Logo -->
+      <div class="flex items-center space-x-3">
+        <svg class="w-8 h-8 shrink-0" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="8" width="90" height="68" rx="14" stroke="#ffffff" stroke-width="6" fill="#0f172a"/>
+          <path d="M22 76 L22 92 L38 76 Z" fill="#0f172a" stroke="#ffffff" stroke-width="6" stroke-linejoin="round"/>
+          <rect x="18" y="20" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="36" y="20" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="54" y="20" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="72" y="20" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="18" y="37" width="13" height="13" rx="3" fill="#f97316"/>
+          <rect x="36" y="37" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="54" y="37" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="72" y="37" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="18" y="54" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="36" y="54" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="54" y="54" width="13" height="13" rx="3" fill="#38bdf8"/>
+          <rect x="72" y="54" width="13" height="13" rx="3" stroke="#94a3b8" stroke-dasharray="2 2" stroke-width="2" fill="none"/>
+        </svg>
+        <div>
+          <div class="text-white font-black text-sm tracking-tight flex items-center gap-1.5">
+            한국광해광업공단 AI 실습 데이터 허브
+            <span class="text-[10px] px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 font-semibold border border-teal-500/30">KOMIR DATASET v1.0</span>
+          </div>
+          <p class="text-xs text-slate-400">신규입사자 실무 역량강화 8시간 과정 가상 교육용 데이터 5종</p>
+        </div>
+      </div>
+
+      <!-- Right: Expert Consulting Logo & Batch Download -->
+      <div class="flex items-center space-x-3">
+        <button onclick="downloadAllDatasets()" class="px-3.5 py-1.5 bg-sky-600 hover:bg-sky-500 active:bg-sky-700 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow transition">
+          <i class="fa-solid fa-cloud-arrow-down"></i>
+          <span>전체 데이터 일괄 다운로드</span>
+        </button>
+
+        <div class="hidden sm:flex items-center space-x-2 pl-3 border-l border-slate-800">
+          <div class="text-right leading-none">
+            <span class="text-white italic font-black text-sm tracking-tighter" style="font-family: 'Arial Black', sans-serif;">EXPERT</span>
+            <div class="text-[8px] text-emerald-400 font-bold uppercase tracking-widest">CONSULTING</div>
+          </div>
+          <div class="w-1.5 h-5 bg-gradient-to-b from-emerald-400 to-teal-500 rounded-sm transform skew-x-12"></div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Stage -->
+  <main class="max-w-7xl mx-auto p-4 sm:p-6 flex-1 w-full space-y-6">
+
+    <!-- Security & Usage Banner -->
+    <div class="p-4 bg-slate-900/80 border border-slate-800 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs shadow-lg">
+      <div class="flex items-center space-x-3">
+        <div class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-base border border-amber-500/20 shrink-0">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div>
+          <div class="font-bold text-slate-200">공공기관 AI 보안 수칙 준수 가상 데이터셋 안내</div>
+          <div class="text-slate-400 mt-0.5">본 데이터는 교육 실습을 위해 100% 가상으로 제작된 데이터셋입니다. 실제 공단 내부 기밀·개인정보는 절대 포함되어 있지 않습니다.</div>
+        </div>
+      </div>
+      <div class="flex items-center space-x-2 text-[11px] text-slate-400 font-mono bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 shrink-0">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>외부 API 호출 없음 (100% 로컬 구동)</span>
+      </div>
+    </div>
+
+    <!-- Dataset Selection Tabs -->
+    <nav class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5" id="datasetTabs">
+      <!-- Populated by JS -->
+    </nav>
+
+    <!-- Active Dataset Content Stage -->
+    <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 sm:p-6 space-y-5 shadow-xl">
+      
+      <!-- Top Action Bar -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+        <div>
+          <div class="flex items-center space-x-2.5">
+            <span id="activeModuleBadge" class="px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30">M4 & M7 실습</span>
+            <h2 id="activeDatasetTitle" class="text-lg font-black text-white">1. 광해방지시설 현장점검 통계 데이터</h2>
+          </div>
+          <p id="activeDatasetDesc" class="text-xs text-slate-400 mt-1">광해방지 수질정화시설 및 침전조 현장점검 25건 누적 이력 (정형 CSV)</p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- View Toggle -->
+          <div class="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs">
+            <button onclick="setViewMode('table')" id="btnViewTable" class="px-3 py-1 rounded-lg font-semibold bg-teal-600 text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-table"></i> 표 형태 보기
+            </button>
+            <button onclick="setViewMode('raw')" id="btnViewRaw" class="px-3 py-1 rounded-lg font-semibold text-slate-400 hover:text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-code"></i> 원문 (RAW) 보기
+            </button>
+          </div>
+
+          <!-- Quick Copy Button -->
+          <button onclick="copyActiveDataset()" class="px-3.5 py-2 bg-slate-800 hover:bg-teal-600 text-slate-200 hover:text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 border border-slate-700">
+            <i class="fa-regular fa-copy"></i>
+            <span>전체 복사</span>
+          </button>
+
+          <!-- Download Button -->
+          <button onclick="downloadActiveDataset()" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
+            <i class="fa-solid fa-file-arrow-down"></i>
+            <span id="downloadBtnText">CSV 다운로드</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Search Filter & Quick Prompt Recommendation -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+        <!-- Search Input (7 Cols) -->
+        <div class="lg:col-span-7 relative">
+          <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <input 
+            type="text" 
+            id="dataSearchInput" 
+            onkeyup="filterActiveData()" 
+            placeholder="데이터 내 키워드 실시간 검색 (시설명, 지역, 점검자, 상태, 규정명 등)..." 
+            class="w-full pl-10 pr-20 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-teal-500 transition"
+          >
+          <button onclick="clearSearch()" class="absolute inset-y-0 right-2 my-auto h-6 px-2 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-md text-[10px] font-semibold transition">
+            초기화
+          </button>
+        </div>
+
+        <!-- Meta Information (5 Cols) -->
+        <div class="lg:col-span-5 flex items-center justify-between lg:justify-end space-x-4 text-xs text-slate-400 font-mono">
+          <div>항목 수: <span id="dataRowCount" class="font-bold text-teal-400">25</span>건</div>
+          <div>파일 포맷: <span id="dataFileType" class="font-bold text-sky-400">CSV (UTF-8 BOM)</span></div>
+        </div>
+      </div>
+
+      <!-- Data Display Container (Table View & Raw View) -->
+      <div class="relative bg-slate-950 rounded-xl border border-slate-800 overflow-hidden min-h-[380px] flex flex-col justify-between">
+        
+        <!-- Table Viewport (Default) -->
+        <div id="tableViewport" class="overflow-x-auto flex-1 max-h-[520px]">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead id="tableHead" class="bg-slate-900/90 text-slate-300 uppercase font-bold sticky top-0 z-10 border-b border-slate-800">
+              <!-- Rendered by JS -->
+            </thead>
+            <tbody id="tableBody" class="divide-y divide-slate-900 text-slate-300">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Raw Text / Code Viewport (Hidden by default) -->
+        <div id="rawViewport" class="hidden flex-1 p-4 overflow-y-auto max-h-[520px]">
+          <pre id="rawContent" class="text-xs font-mono text-slate-300 leading-relaxed whitespace-pre-wrap select-text selection:bg-teal-700 selection:text-white"></pre>
+        </div>
+
+      </div>
+
+      <!-- Recommended Gemini Prompt Box for this Dataset -->
+      <div class="p-4 bg-slate-950 rounded-xl border border-slate-800/80 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-lightbulb"></i> 이 데이터셋과 함께 쓰는 Gemini 추천 실습 프롬프트
+          </div>
+          <p id="promptDesc" class="text-[11px] text-slate-400">Gemini 무료 계정에 데이터를 붙여넣고 바로 실행해볼 수 있는 표준 5요소 지시문입니다.</p>
+        </div>
+        <button onclick="copyRecommendedPrompt()" class="px-3.5 py-2 bg-slate-800 hover:bg-amber-600 text-slate-200 hover:text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shrink-0 border border-slate-700">
+          <i class="fa-regular fa-copy"></i>
+          <span>추천 프롬프트 복사</span>
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ============================================================== -->
+  <!-- FOOTER                                                         -->
+  <!-- ============================================================== -->
+  <footer class="border-t border-slate-800 py-4 px-6 text-center text-xs text-slate-500 bg-slate-950/60 shrink-0">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center space-x-2">
+        <span class="text-slate-400 font-semibold">한국광해광업공단 신규입사자 AI 역량강화 교육 (8H)</span>
+        <span>|</span>
+        <span class="text-teal-400 font-mono">가상 실습 데이터셋 5종 패키지</span>
+      </div>
+      <div>&copy; 2026 Data Thinking Lab. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Box -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 hidden bg-teal-500 text-slate-950 font-black text-xs px-4 py-2.5 rounded-xl shadow-2xl flex items-center space-x-2 toast-anim">
+    <i class="fa-solid fa-check text-slate-950"></i>
+    <span id="toastMsg">클립보드에 복사되었습니다!</span>
+  </div>
+
+  <script>
+    // ==============================================================
+    // 5 MASTER SAMPLE DATASETS FOR KOMIR WORKSHOP
+    // ==============================================================
+
+    const DATASETS = [
+      // ------------------------------------------------------------
+      // 1. 전국 광해방지 수질정화시설 현장점검 통계 데이터 (CSV - 25행)
+      // ------------------------------------------------------------
+      {
+        id: 'facility_inspection',
+        module: 'M4 & M7 실습',
+        title: '1. 광해방지시설 현장점검 통계 데이터',
+        desc: '전국 주요 폐광산 수질정화 및 침전조 현장점검 25건 누적 데이터 (M4 데이터 구조화 및 M7 대시보드 연동용)',
+        filename: '한국광해광업공단_현장점검_실습데이터_25건.csv',
+        type: 'CSV',
+        headers: ['점검ID', '점검일자', '사업소명', '시설유형', '관할지역', '점검자', '유입수_pH', '유량_m3/h', '안전등급', '주요지적사항', '조치상태'],
+        recommendedPrompt: `[역할] 한국광해광업공단 시설안전 총괄 관리자
+[상황] 관할 수질정화시설 및 침전조의 25건 현장점검 통계 데이터를 검토 중임
+[요청] 아래 데이터를 분석하여:
+1. 가장 이상 징후(긴급/주의)가 빈번한 취약 사업소 TOP 2와 구체적 원인
+2. 안전등급별(정상/주의/긴급) 점유율 통계 요약
+3. 본원 차원에서 우선 배정해야 할 설비 보수 예산 권고사항 2가지
+를 공공기관 경영진 보고용 개조식(Bullet point)으로 정리해줘.
+
+(데이터 붙여넣기)`,
+        rows: [
+          { '점검ID': 'CHK-2026-001', '점검일자': '2026-03-02', '사업소명': '강원 정선 A정화시설', '시설유형': '자연정화시설', '관할지역': '강원동부', '점검자': '이대리', '유입수_pH': '4.2', '유량_m3/h': '120', '안전등급': '주의', '주요지적사항': '중화제 투입 펌프 노후화로 강산성 유지', '조치상태': '조치중' },
+          { '점검ID': 'CHK-2026-002', '점검일자': '2026-03-03', '사업소명': '경북 문경 B시설', '시설유형': '슬러지침전조', '관할지역': '중부권', '점검자': '박주임', '유입수_pH': '6.5', '유량_m3/h': '85', '안전등급': '주의', '주요지적사항': '슬러지 퇴적 높이 80% 초과로 월류 우려', '조치상태': '조치중' },
+          { '점검ID': 'CHK-2026-003', '점검일자': '2026-03-05', '사업소명': '전남 화순 C시설', '시설유형': '물리화학정화', '관할지역': '호남권', '점검자': '최과장', '유입수_pH': '6.9', '유량_m3/h': '150', '안전등급': '정상', '주요지적사항': '배관 밸브 미세 누수 패킹 교체 완료', '조치상태': '완료' },
+          { '점검ID': 'CHK-2026-004', '점검일자': '2026-03-07', '사업소명': '강원 태백 D시설', '시설유형': '전기기계정화', '관할지역': '강원남부', '점검자': '이대리', '유입수_pH': '6.8', '유량_m3/h': '95', '안전등급': '주의', '주요지적사항': '인버터 오작동 경고등 점등으로 안전관리자 점검', '조치상태': '완료' },
+          { '점검ID': 'CHK-2026-005', '점검일자': '2026-03-10', '사업소명': '충남 보령 E시설', '시설유형': '토양개량시설', '관할지역': '충청권', '점검자': '정대리', '유입수_pH': '7.1', '유량_m3/h': '45', '안전등급': '정상', '주요지적사항': '침출수 유출 방지 시트 이상 없음', '조치상태': '완료' },
+          { '점검ID': 'CHK-2026-006', '점검일자': '2026-03-12', '사업소명': '강원 정선 A정화시설', '시설유형': '자연정화시설', '관할지역': '강원동부', '점검자': '김대리', '유입수_pH': '3.8', '유량_m3/h': '135', '안전등급': '긴급', '주요지적사항': '모터 펌프 완전 정지 확인 및 바이패스 가동', '조치상태': '지연' },
+          { '점검ID': 'CHK-2026-007', '점검일자': '2026-03-13', '사업소명': '경북 봉화 F시설', '시설유형': '자연정화시설', '관할지역': '중부권', '점검자': '박주임', '유입수_pH': '5.1', '유량_m3/h': '60', '안전등급': '주의', '주요지적사항': '석회석 반응조 표면 피막 형성으로 효율 저하', '조치상태': '조치중' },
+          { '점검ID': 'CHK-2026-008', '점검일자': '2026-03-15', '사업소명': '강원 삼척 G시설', '시설유형': '슬러지침전조', '관할지역': '강원동부', '점검자': '이대리', '유입수_pH': '6.7', '유량_m3/h': '110', '안전등급': '정상', '주요지적사항': '슬러지 탈수기 정기 필터 세척 실시', '조치상태': '완료' },
+          { '점검ID': 'CHK-2026-009', '점검일자': '2026-03-17', '사업소명': '전북 완주 H시설', '시설유형': '물리화학정화', '관할지역': '호남권', '점검자': '최과장', '유입수_pH': '7.0', '유량_m3/h': '75', '안전등급': '정상', '주요지적사항': '중화제 잔여량 정상 확인 (85%)', '조치상태': '완료' },
+          { '점검ID': 'CHK-2026-010', '점검일자': '2026-03-19', '사업소명': '강원 영월 I시설', '시설유형': '자연정화시설', '관할지역': '강원남부', '점검자': '김대리', '유입수_pH': '6.4', '유량_m3/h': '105', '안전등급': '정상', '주요지적사항': '소분배수로 퇴적 토사 준설 완료', '조치상태': '완료' },
+          { '점검ID': 'CHK-2026-011', '점검일자': '2026-03-20', '사업소명': '충북 단양 J시설', '시설유형': '슬러지침전조', '관할지역': '충청권', '점검자': '정대리', '유입수_pH': '6.2', '유량_m3/h': '130', '안전등급': '주의', '주요지적사항': '침전조 월류 배플 파손 미세 균열 확인', '조치상태': '조치중' },
+          { '점검ID': 'CHK-2026-012', '점검일자': '2026-03-22', '사업소명': '경북 문경 B시설', '시설유형': '슬러지침전조', '관할지역': '중부권', '점검자': '박주임', '유입수_pH': '6.6', '유량_m3/h': '90', '안전등급': '정상', '주요지적사항': '슬러지 위탁 준설 반출 25톤 완료', '조치상태': '완료' },
+          { '점검ID': 'CHK-2026-013', '점검일자': '2026-03-24', '사업소명': '강원 정선 A정화시설', '시설유형': '자연정화시설', '관할지역': '강원동부', '점검자': '김대리', '유입수_pH': '4.5', '유량_m3/h': '125', '안전등급': '긴급', '주요지적사항': '교체용 모터 입고 지연으로 수질 악화 지속', '조치상태': '지연' },
+          { '점검ID': 'CHK-2026-014', '점검일자': '2026-03-25', '사업소명': '전남 화순 C시설', '시설유형': '물리화학정화', '관할지역': '호남권', '점검자': '최과장', '유입수_pH': '6.8', '유량_m3/h': '145', '안전등급': '정상', '주요지적사항': '유량계 정밀 교정 완료', '조치상태': '완료' },
+          { '점검ID': 'CHK-2026-015', '점검일자': '2026-03-26', '사업소명': '강원 태백 D시설', '시설유형': '전기기계정화', '관할지역': '강원남부', '점검자': '이대리', '유입수_pH': '6.5', '유량_m3/h': '98', '안전등급': '정상', '주요지적사항': '비상 발전기 무부하 가동 시험 합격', '조치상태': '완료' },
+          { '점검ID': 'CHK-2026-016', '점검일자': '2026-03-27', '사업소명': '경북 봉화 F시설', '시설유형': '자연정화시설', '관할지역': '중부권', '점검자': '박주임', '유입수_pH': '4.9', '유량_m3/h': '65', '안전등급': '주의', '주요지적사항': '석회석 반응 효율 저하로 상층수 혼탁', '조치상태': '조치중' },
+          { '점검ID': 'CHK-2026-017', '점검일자': '2026-03-28', '사업소명': '충남 보령 E시설', '시설유형': '토양개량시설', '관할지역': '충청권', '점검자': '정대리', '유입수_pH': '7.2', '유량_m3/h': '40', '안전등급': '정상', '주요지적사항': '식생 피복 잔디 생육 상태 양호', '조치상태': '완료' },
+          { '점검ID': 'CHK-2026-018', '점검일자': '2026-03-29', '사업소명': '강원 삼척 G시설', '시설유형': '슬러지침전조', '관할지역': '강원동부', '점검자': '김대리', '유입수_pH': '6.9', '유량_m3/h': '115', '안전등급': '정상', '주요지적사항': '수위 감지 센서 정상 작동 확인', '조치상태': '완료' },
+          { '점검ID': 'CHK-2026-019', '점검일자': '2026-03-30', '사업소명': '전북 완주 H시설', '시설유형': '물리화학정화', '관할지역': '호남권', '점검자': '최과장', '유입수_pH': '6.1', '유량_m3/h': '80', '안전등급': '주의', '주요지적사항': '급격한 강우로 유입 유량 30% 급증', '조치상태': '완료' },
+          { '점검ID': 'CHK-2026-020', '점검일자': '2026-03-30', '사업소명': '충북 단양 J시설', '시설유형': '슬러지침전조', '관할지역': '충청권', '점검자': '정대리', '유입수_pH': '6.3', '유량_m3/h': '125', '안전등급': '주의', '주요지적사항': '배플 보수 자재 수급 대기 중', '조치상태': '조치중' },
+          { '점검ID': 'CHK-2026-021', '점검일자': '2026-03-31', '사업소명': '강원 정선 A정화시설', '시설유형': '자연정화시설', '관할지역': '강원동부', '점검자': '이대리', '유입수_pH': '6.8', '유량_m3/h': '118', '안전등급': '정상', '주요지적사항': '신규 펌프 설치 완료 및 수질 정상 회복', '조치상태': '완료' },
+          { '점검ID': 'CHK-2026-022', '점검일자': '2026-03-31', '사업소명': '경북 문경 B시설', '시설유형': '슬러지침전조', '관할지역': '중부권', '점검자': '박주임', '유입수_pH': '6.7', '유량_m3/h': '88', '안전등급': '정상', '주요지적사항': '퇴적율 20% 유지 확인', '조치상태': '완료' },
+          { '점검ID': 'CHK-2026-023', '점검일자': '2026-04-01', '사업소명': '강원 영월 I시설', '시설유형': '자연정화시설', '관할지역': '강원남부', '점검자': '김대리', '유입수_pH': '6.6', '유량_m3/h': '100', '안전등급': '정상', '주요지적사항': '방류구 탁도 계측치 기준치 이하', '조치상태': '완료' },
+          { '점검ID': 'CHK-2026-024', '점검일자': '2026-04-02', '사업소명': '전남 화순 C시설', '시설유형': '물리화학정화', '관할지역': '호남권', '점검자': '최과장', '유입수_pH': '7.1', '유량_m3/h': '140', '안전등급': '정상', '주요지적사항': '슬러지 이송 펌프 베어링 오일 보충', '조치상태': '완료' },
+          { '점검ID': 'CHK-2026-025', '점검일자': '2026-04-03', '사업소명': '경북 봉화 F시설', '시설유형': '자연정화시설', '관할지역': '중부권', '점검자': '박주임', '유입수_pH': '6.5', '유량_m3/h': '62', '안전등급': '정상', '주요지적사항': '석회석 세척 역세척 작업 완료 후 정상화', '조치상태': '완료' }
+        ]
+      },
+
+      // ------------------------------------------------------------
+      // 2. 비정형 현장 점검 일지 원문 텍스트 10선 (TXT)
+      // ------------------------------------------------------------
+      {
+        id: 'unstructured_notes',
+        module: 'M4 실습',
+        title: '2. 현장 점검 일지 비정형 메모 원문 10선',
+        desc: '다양한 직원이 제각각 줄글로 작성한 비정형 메모 텍스트 (Gemini로 표 추출 및 CSV 구조화 실습용)',
+        filename: '한국광해광업공단_비정형_점검일지_메모10선.txt',
+        type: 'TXT',
+        recommendedPrompt: `[역할] 공공기관 데이터 엔지니어
+[요청] 아래 10건의 비정형 현장 점검 메모를 분석하여, 누락 없이 정형화된 데이터 테이블로 변환해줘.
+[필수 컬럼] 점검일자, 시설명, 지역, 점검자, 이상항목(수질/설비/전기/슬러지/토양), 상태등급(정상/주의/긴급), 주요내용, 조치사항
+[조건] 상태등급은 메모의 위험도를 네가 판단하여 직접 부여할 것.
+[출력형식] 마크다운 표(Table)와 그 아래 엑셀로 복사 가능한 CSV 텍스트 블록 두 가지 모두 출력해줘.
+
+(데이터 붙여넣기)`,
+        rawText: `[일지 1] 2026-03-02 / 강원 정선 A정화시설 / 점검자: 이대리
+유입 유량은 120톤 정도로 평소 수준이나 pH가 4.2로 강산성을 띠고 있음. 중화제 자동 투입 펌프 모터 소음이 심하고 약품 흡입 압력이 떨어져 노후화로 판단됨. 현장에서 임시 윤활유 도포 및 점검 진행함. 긴급 부품 교체 품의 필요.
+
+[일지 2] 2026-03-05 / 경북 문경 B시설 / 점검자: 박주임
+슬러지 침전조 레벨 게이지 확인 결과 퇴적 높이가 80%를 초과함. 최근 강우 영향으로 슬러지 침강 속도가 저하되었으며, 조속히 준설하지 않을 경우 방류수로 월류될 위험이 있음. 준설 협력업체에 긴급 반출 일정 조율 연락 취함.
+
+[일지 3] 2026-03-10 / 전남 화순 C시설 / 점검자: 최과장
+물리화학정화시설 2호 배관 밸브 연결부에서 미세 누수 발생. 누수량은 분당 1리터 미만으로 환경 오염 우려는 없으나 플랜지 볼트 부식이 진행 중임. 현장 예비 가스켓 패킹으로 즉시 교체 체결 완료하여 누수 차단함.
+
+[일지 4] 2026-03-14 / 강원 태백 D시설 / 점검자: 이대리
+유입수 pH 6.8로 정상 수치 유지 중. 단, 메인 전기실 인버터 패널에서 '과부하 경고등' 간헐적 점등 확인. 전기안전관리자 입회하에 절연저항 계측 및 배선 점검 실시, 냉각 팬 먼지 제거 후 경고등 소등됨.
+
+[일지 5] 2026-03-18 / 강원 정선 A정화시설 / 점검자: 김대리
+지난 2일 점검했던 A정화시설 펌프가 오전 10시경 과열로 완전 정지된 상태로 발견됨. 유입수 pH 3.8로 급격히 악화되어 방류 기준 초과 우려. 즉시 가동 중단 후 비상 바이패스 수로로 전환 조치함. 예비 펌프 긴급 수리 발주 요망.
+
+[일지 6] 2026-03-21 / 경북 봉화 F시설 / 점검자: 박주임
+자연정화 반응조 1단계 SAPS(소택지) 구간 석회석 표면에 철수산화물 침전(Armoring 피막)이 두껍게 발생함. 산성수 접촉 면적이 줄어들어 방류수 pH가 5.1로 저하됨. 반응조 상부 슬러지 긁어내기 및 표면 쇄석 교반 작업 착수.
+
+[일지 7] 2026-03-23 / 충남 보령 E시설 / 점검자: 정대리
+폐석 적치장 상부 토양개량 및 식생 복원지 점검. 지난주 집중 호우로 인한 사면 토사 유실 여부 육안 확인 결과 붕괴 징후 없음. 침출수 집수정 유량 정상(40m3/h)이며 배수관로 막힘 없이 양호함.
+
+[일지 8] 2026-03-25 / 충북 단양 J시설 / 점검자: 정대리
+침전조 유출웨어 월류 배플 하단부에 약 15cm 길이의 미세 균열 확인. 현재 슬러지 유출은 없으나 수압 지속 시 파손 확대 우려 있음. FRP 보수용 패치 및 에폭시 자재 긴급 수급 요청서 작성하여 소장님 보고 완료.
+
+[일지 9] 2026-03-27 / 강원 삼척 G시설 / 점검자: 김대리
+슬러지 탈수기 가동 점검. 여과포 마모 상태 확인 결과 찢어짐이나 편마모 없음. 탈수 케이크 함수율 68%로 공단 기준치(75% 이하)를 충족함. 탈수 여액 수질 pH 6.9로 양호하여 방류조로 정상 회송 처리.
+
+[일지 10] 2026-03-31 / 강원 정선 A정화시설 / 점검자: 이대리
+긴급 발주했던 A시설 신규 내산성 마그네틱 펌프 설치 완료. 시운전 결과 약품 정량 주입 정상 작동하며, 유입수 pH 6.8로 완벽 회복됨. 바이패스 차단하고 본 정화계통 정상 가동 복귀 완료 보고함.`
+      },
+
+      // ------------------------------------------------------------
+      // 3. 한국광해광업공단 사내 규정 및 행정 FAQ (JSON / CSV - 10종)
+      // ------------------------------------------------------------
+      {
+        id: 'internal_faq',
+        module: 'M6 실습',
+        title: '3. 공단 핵심 복무·여비 규정 및 행정 FAQ',
+        desc: '신입사원이 가장 자주 찾는 경조사 휴가, 여비, 유연근무 등 사내 규정 10선 (M6 검색 웹앱 내장용)',
+        filename: '한국광해광업공단_사내행정_FAQ_10선.csv',
+        type: 'CSV',
+        headers: ['FAQ_ID', '구분', '키워드태그', '질문제목', '핵심규정내용', '담당부서', '사내내선'],
+        recommendedPrompt: `[역할] 시니어 웹 프론트엔드 개발자
+[목표] 한국광해광업공단 신입사원 전용 '스마트 사내 행정 도우미' 단일 HTML 웹앱 제작
+[요구사항]
+1. 첨부된 FAQ 10종 데이터를 자바스크립트 객체 배열(JSON)로 내장할 것
+2. 상단에 검색창을 두고 검색어 입력 시 실시간으로 FAQ 카드가 필터링되게 할 것
+3. 오른쪽에는 [공문 인사말 복사기]를 두고 원클릭 클립보드 복사 버튼을 제공할 것
+4. 외부 통신 없는 단일 HTML 파일로 완성 코드를 줘.
+
+(데이터 붙여넣기)`,
+        rows: [
+          { 'FAQ_ID': 'FAQ-01', '구분': '복무/휴가', '키워드태그': '경조사,결혼,사망', '질문제목': '경조사 휴가 일수 및 신청 증빙 서류 기준', '핵심규정내용': '본인 결혼 5일, 자녀 결혼 1일, 배우자 출산 10일, 부모 사망 5일 유급휴가 부여. 행사일 기준 30일 이내 인트라넷 신청 및 청첩장/가족관계증명서 첨부 필수.', '담당부서': '인사총무처', '사내내선': '1102' },
+          { 'FAQ_ID': 'FAQ-02', '구분': '회계/여비', '키워드태그': '출장비,일비,식비,숙박', '질문제목': '국내 관외 출장 여비 지급 기준', '핵심규정내용': '원주 본원 기준 관외 출장 시 1일당 일비 25,000원, 식비 25,000원 정액 지급. 숙박비는 공무원 여비 규정에 준하여 실비 영수증 정산(상한선 광역시 8만원, 기타 7만원).', '담당부서': '재무회계처', '사내내선': '1240' },
+          { 'FAQ_ID': 'FAQ-03', '구분': '근태/근무', '키워드태그': '유연근무,시차출퇴근', '질문제목': '유연근무제(시차출퇴근형) 신청 요건', '핵심규정내용': '07:00 ~ 10:00 사이 30분 단위 자율 출근 가능. 단, 협업 코어타임(10:00~15:00)은 반드시 재실해야 하며, 주 40시간 총량을 준수하여 전주 금요일까지 신청 승인 필요.', '담당부서': '인사총무처', '사내내선': '1105' },
+          { 'FAQ_ID': 'FAQ-04', '구분': '복지/후생', '키워드태그': '복지포인트,건강검진', '질문제목': '신규입사자 맞춤형 복지포인트 지급 기준', '핵심규정내용': '입사 당해 연도는 잔여 근무 개월 수에 비례하여 일할 계산 지급. 자기계발, 건강검진, 문화여가, 도서 구매 등에 사용 가능하며 전용 복지몰 또는 복지카드 소급 청구.', '담당부서': '노사협력처', '사내내선': '1310' },
+          { 'FAQ_ID': 'FAQ-05', '구분': '사내문화', '키워드태그': '동호회,지원금,활동비', '질문제목': '사내 동호회 설립 및 활동비 지원 기준', '핵심규정내용': '공단 임직원 최소 5인 이상 구성 시 정식 동호회 등록 가능. 분기별 활동 계획서 제출 시 회원 1인당 분기 30,000원의 활동 보조금 지원.', '담당부서': '노사협력처', '사내내선': '1315' },
+          { 'FAQ_ID': 'FAQ-06', '구분': '보안/IT', '키워드태그': '인공지능,보안,ChatGPT', '질문제목': '사내 업무망에서 외부 생성형 AI 사용 수칙', '핵심규정내용': '공단 내부 비공개 문서, 광산 실측 데이터, 개인식별정보 입력 절대 금지. 일반 정책 리서치 및 문서 포맷 교정에 한하여 마스킹 후 사용 가능하며 산출물 팩트체크 필수.', '담당부서': '디지털정보처', '사내내선': '1450' },
+          { 'FAQ_ID': 'FAQ-07', '구분': '복무/휴가', '키워드태그': '연차,반차,시간차', '질문제목': '신입사원 1년 미만 연차유급휴가 발생 및 사용', '핵심규정내용': '입사 후 1년 미만 기간 동안은 1개월 개근 시 1일씩 최대 11일 발생. 반차(4시간), 시간차(1시간 단위) 분할 사용 가능하며 모바일 인트라넷 신청.', '담당부서': '인사총무처', '사내내선': '1103' },
+          { 'FAQ_ID': 'FAQ-08', '구분': '안전/보건', '키워드태그': '현장점검,안전장구,보호구', '질문제목': '광해시설 및 광산 현장 출장 시 안전보호구 지급', '핵심규정내용': '현장 출장 임직원은 안전모, 안전화, 방진마스크, 보호안경 착용 필수. 신규 입사 시 사업소별 안전보호구 창고에서 개인 전용 장구 즉시 수령 가능.', '담당부서': '안전보건처', '사내내선': '1520' },
+          { 'FAQ_ID': 'FAQ-09', '구분': '회계/정산', '키워드태그': '법인카드,클린카드,영수증', '질문제목': '법인 클린카드 사용 제한 및 증빙 제출 기한', '핵심규정내용': '심야시간(23시~06시) 및 주말 사용 제한. 유흥업소 사용 불가. 결제 후 5영업일 이내 인트라넷 전자인출 전표 작성 및 전자영수증 첨부 의무화.', '담당부서': '재무회계처', '사내내선': '1245' },
+          { 'FAQ_ID': 'FAQ-10', '구분': '사내교육', '키워드태그': '교육훈련,의무교육,이수시간', '질문제목': '신규입사자 연간 법정의무교육 이수 요건', '핵심규정내용': '개인정보보호, 청렴·반부패, 성희롱예방, 장애인인식개선, 직장내괴롭힘예방 등 5대 의무교육 필수 이수. e-러닝 연수원을 통해 입사 후 3개월 이내 수료 원칙.', '담당부서': '인재개발원', '사내내선': '1605' }
+        ]
+      },
+
+      // ------------------------------------------------------------
+      // 4. 실무 공문서 및 현장 메모 변환 시나리오 5종 (TXT)
+      // ------------------------------------------------------------
+      {
+        id: 'doc_scenarios',
+        module: 'M2 실습',
+        title: '4. 실무 공문서·기안문 변환용 시나리오 5종',
+        desc: '현장 답사 메모를 1-Page 표준 기안문, 지자체 협조공문, 이메일로 변환하는 실무 시나리오 (M2 실습용)',
+        filename: '한국광해광업공단_공문서변환_실무시나리오5종.txt',
+        type: 'TXT',
+        recommendedPrompt: `[역할] 한국광해광업공단 10년 차 수석 기획관
+[상황] 아래 제공된 [시나리오 1]의 거친 현장 메모를 바탕으로 본부장 결재용 정식 기안문을 작성해야 함
+[목표] 공공기관 공문서 작성 표준 양식에 맞춘 1-Page 기안문 초안 작성
+[조건]
+- 추진 배경, 현황 및 문제점, 세부 추진계획, 소요예산(가상 표), 기대효과 순으로 구성
+- 엄격한 행정 개조식(~함, ~음) 어조 준수
+- 비공개 보안 수치는 가명화 유지
+[출력형식] 마크다운 문서
+
+(시나리오 내용 붙여넣기)`,
+        rawText: `[시나리오 1: 광해정화시설 긴급 보수공사 기안]
+현장 메모:
+"강원 A사업소 수질정화시설 2호 펌프 모터 소손으로 유입수 정화 중단 위기. 
+현재 바이패스로 임시 방류 중이나 방류수 pH가 4.2로 계속 떨어져서 지자체 민원 및 환경부 수질 기준 초과 우려됨.
+부품 교체 및 배관 교체비 약 1,500만 원, 긴급 공사 3일 소요 예상.
+본부장님 결재 받아서 이번 주 금요일까지 공사 업체 계약 및 즉시 착공해야 함."
+
+[시나리오 2: 지자체(정선군) 합동 하천 환경점검 협조공문]
+현장 메모:
+"2026년 봄철 갈수기 대비 정선군 관내 폐광산 유출수 하천 유입 실태 합동점검 추진 건.
+일시: 2026년 4월 15일~17일(3일간).
+참여: 공단 강원지사 3명 + 정선군 환경과 2명.
+요청사항: 하천 시료 채취 차량 통행 협조, 군청 환경감시원 1명 동행 요청, 점검 결과 공유 회의실 대여 협조.
+정중하고 격식 있는 대외 관공서 발신 공문 서식으로 작성 필요."
+
+[시나리오 3: 광해방지 복구공사 주민설명회 개최 안내문]
+현장 메모:
+"충남 보령 폐탄광 사면 붕괴 위험지 복구공사 착공 전 주민설명회 개최.
+일시: 2026년 4월 20일(월) 오후 2시, 마을회관 2층.
+내용: 사면 안정화 옹벽 시공 공법 설명, 소음·분진 저감 대책, 공사 기간(5개월) 내 덤프트럭 우회로 지정 안내.
+어르신들이 이해하기 쉽게 친절하고 정중한 어조의 주민 안내문 작성."
+
+[시나리오 4: 해외 핵심광물 공급망 세미나 출장복명서]
+현장 메모:
+"출장자: 자원안보처 김대리.
+출장지: 서울 코엑스 인터콘티넨탈 호텔 (글로벌 배터리 광물 공급망 콘퍼런스).
+주요 내용: 호주·칠레 리튬 생산 협회 발표 청취. 2026년 하반기 공급 과잉 완화로 리튬 가격 반등 전망. 미국 IRA 보조금 요건 강화로 인도네시아산 니켈 우회 수입 규제 리스크 논의됨.
+시사점: 공단 비축 광종 중 탄산리튬 비축량 20% 조기 방출 검토 및 북미 FTA 체결국 공급망 다변화 필요.
+본부장 보고용 1-Page 출장 복명서로 작성."
+
+[시나리오 5: 안전점검 지적사항 시정명령 통보서]
+현장 메모:
+"문경 B시설 위탁관리업체인 (주)OO엔지니어링 대상.
+지적사항: 슬러지 침전조 퇴적율 80% 방치 및 안전 난간 파손 미보수.
+요구사항: 7일 이내 슬러지 전량 준설 완료 및 파손 난간 용접 보수 후 시정완료 보고서 제출.
+기한 미준수 시 위탁 계약 해지 및 페널티 부과 사전 통보.
+엄격하고 명확한 법적 근거가 담긴 시정명령 공문 작성."`
+      },
+
+      // ------------------------------------------------------------
+      // 5. 글로벌 핵심광물 비축 및 공급망 현황 데이터 (CSV - 8종)
+      // ------------------------------------------------------------
+      {
+        id: 'critical_minerals',
+        module: 'M3 실습',
+        title: '5. 글로벌 핵심광물 비축 및 공급망 통계',
+        desc: '정부 핵심광물 8대 광종(리튬, 니켈, 희토류 등)의 비축 목표, 수입의존도, 가격 추이 (M3 팩트체크 실습용)',
+        filename: '한국광해광업공단_핵심광물_비축현황_8대광종.csv',
+        type: 'CSV',
+        headers: ['광종명', '주요용도', '수입의존도(%)', '1위수입국', '수입국비중(%)', '현재비축일수', '목표비축일수', '가격추이_6개월', '공급망리스크요인'],
+        recommendedPrompt: `[역할] 한국광해광업공단 자원안보본부 수석 애널리스트
+[상황] 정부의 2026년 국가 핵심광물 비축 종합 계획에 따른 공급망 취약성 검토
+[요청] 아래 8대 핵심광물 데이터를 분석하여:
+1. 수입의존도 90% 이상이면서 특정 1개국 편중도가 70%를 넘는 초고위험 광종 3가지 식별
+2. 현재 비축일수 대비 목표 비축일수 도달률이 가장 미흡하여 긴급 매입이 필요한 광종 선정
+3. 공단 자원안보처 차원의 '핵심광물 공급망 다변화 대응 전략' 3줄 요약
+을 마크다운 보고서로 작성해줘.
+
+(데이터 붙여넣기)`,
+        rows: [
+          { '광종명': '수산화리튬', '주요용도': '하이니켈 삼원계 배터리 양극재', '수입의존도(%)': '99.5', '1위수입국': '중국', '수입국비중(%)': '79.2', '현재비축일수': '45일', '목표비축일수': '100일', '가격추이_6개월': '-12.4%', '공급망리스크요인': '중국 정제련 독점 및 환경 규제 강화' },
+          { '광종명': '황산니켈', '주요용도': '전기차 배터리 고용량 양극재', '수입의존도(%)': '96.8', '1위수입국': '인도네시아', '수입국비중(%)': '65.4', '현재비축일수': '55일', '목표비축일수': '100일', '가격추이_6개월': '+5.8%', '공급망리스크요인': '인도네시아 원광 수출 제한 및 환경세 부과' },
+          { '광종명': '황산코발트', '주요용도': '배터리 열안정성 강화 양극재', '수입의존도(%)': '98.2', '1위수입국': '콩고민주공화국(정련중국)', '수입국비중(%)': '74.1', '현재비축일수': '60일', '목표비축일수': '100일', '가격추이_6개월': '-8.1%', '공급망리스크요인': 'DRC 정세 불안 및 인권/노동 이슈 국제 규제' },
+          { '광종명': '천연흑연', '주요용도': '전기차 배터리 음극재 코어 소재', '수입의존도(%)': '99.8', '1위수입국': '중국', '수입국비중(%)': '93.7', '현재비축일수': '35일', '목표비축일수': '90일', '가격추이_6개월': '+2.3%', '공급망리스크요인': '중국 정부의 흑연 수출 통제 품목 지정' },
+          { '광종명': '영구자석용 희토류(NdFeB)', '주요용도': '전기차 모터 및 풍력터빈 핵심부품', '수입의존도(%)': '99.1', '1위수입국': '중국', '수입국비중(%)': '85.6', '현재비축일수': '40일', '목표비축일수': '120일', '가격추이_6개월': '+14.5%', '공급망리스크요인': '중국 희토류 채굴 및 제련 수출 쿼터제 적용' },
+          { '광종명': '망간', '주요용도': 'LMFP 배터리 및 특수강 합금 소재', '수입의존도(%)': '92.3', '1위수입국': '남아프리카공화국', '수입국비중(%)': '54.2', '현재비축일수': '70일', '목표비축일수': '100일', '가격추이_6개월': '-3.2%', '공급망리스크요인': '남아공 물류 철도 파업 및 항만 적체' },
+          { '광종명': '전기동 (구리)', '주요용도': '전력망 케이블 및 전기차 구동 모터', '수입의존도(%)': '84.5', '1위수입국': '칠레', '수입국비중(%)': '38.4', '현재비축일수': '65일', '목표비축일수': '90일', '가격추이_6개월': '+8.7%', '공급망리스크요인': '칠레 주요 광산 노후화 및 신규 광산 승인 지연' },
+          { '광종명': '바나듐', '주요용도': '에너지저장장치(ESS) 및 초고강도강', '수입의존도(%)': '91.0', '10위수입국': '남아공/중국', '수입국비중(%)': '61.0', '현재비축일수': '30일', '목표비축일수': '80일', '가격추이_6개월': '+1.5%', '공급망리스크요인': '글로벌 장주기 ESS 수요 급증에 따른 공급 병목' }
+        ]
+      }
+    ];
+
+    let currentDatasetIndex = 0;
+    let currentViewMode = 'table'; // 'table' or 'raw'
+    let currentFilteredRows = [];
+
+    window.onload = function() {
+      initTabs();
+      selectDataset(0);
+    };
+
+    function initTabs() {
+      const container = document.getElementById('datasetTabs');
+      container.innerHTML = '';
+
+      DATASETS.forEach((ds, idx) => {
+        const btn = document.createElement('button');
+        btn.id = `tab-btn-${idx}`;
+        btn.onclick = () => selectDataset(idx);
+        btn.className = `p-3 rounded-xl border text-left transition flex flex-col justify-between ${
+          idx === 0 
+            ? 'bg-slate-900 border-teal-500 shadow-lg text-white' 
+            : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+        }`;
+
+        btn.innerHTML = `
+          <div class="flex items-center justify-between text-[11px] mb-1">
+            <span class="font-bold text-sky-400 font-mono">${ds.module}</span>
+            <span class="px-1.5 py-0.2 rounded bg-slate-800 text-slate-400 text-[10px] font-mono">${ds.type}</span>
+          </div>
+          <div class="text-xs font-bold truncate">${ds.title}</div>
+        `;
+        container.appendChild(btn);
+      });
+    }
+
+    function selectDataset(idx) {
+      currentDatasetIndex = idx;
+      const ds = DATASETS[idx];
+
+      // Update tab styles
+      DATASETS.forEach((_, i) => {
+        const b = document.getElementById(`tab-btn-${i}`);
+        if (b) {
+          if (i === idx) {
+            b.className = 'p-3 rounded-xl border text-left transition flex flex-col justify-between bg-slate-900 border-teal-500 shadow-lg text-white';
+          } else {
+            b.className = 'p-3 rounded-xl border text-left transition flex flex-col justify-between bg-slate-900/50 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200';
+          }
+        }
+      });
+
+      // Update Headers
+      document.getElementById('activeModuleBadge').textContent = ds.module;
+      document.getElementById('activeDatasetTitle').textContent = ds.title;
+      document.getElementById('activeDatasetDesc').textContent = ds.desc;
+      document.getElementById('dataFileType').textContent = `${ds.type} (UTF-8 BOM)`;
+      document.getElementById('downloadBtnText').textContent = `${ds.type} 다운로드`;
+      document.getElementById('dataSearchInput').value = '';
+
+      if (ds.type === 'TXT') {
+        document.getElementById('btnViewTable').classList.add('hidden');
+        setViewMode('raw');
+      } else {
+        document.getElementById('btnViewTable').classList.remove('hidden');
+        setViewMode(currentViewMode === 'table' ? 'table' : 'raw');
+      }
+
+      renderDatasetContent();
+    }
+
+    function renderDatasetContent() {
+      const ds = DATASETS[currentDatasetIndex];
+
+      if (ds.type === 'CSV') {
+        currentFilteredRows = [...ds.rows];
+        document.getElementById('dataRowCount').textContent = currentFilteredRows.length;
+        renderTableRows(currentFilteredRows);
+        renderRawCSV(ds);
+      } else {
+        // Plain Text Dataset
+        document.getElementById('dataRowCount').textContent = '텍스트 시나리오';
+        document.getElementById('rawContent').textContent = ds.rawText;
+      }
+    }
+
+    function renderTableRows(rows) {
+      const ds = DATASETS[currentDatasetIndex];
+      const thead = document.getElementById('tableHead');
+      const tbody = document.getElementById('tableBody');
+
+      thead.innerHTML = '';
+      tbody.innerHTML = '';
+
+      if (!ds.headers) return;
+
+      // Render Head
+      const trHead = document.createElement('tr');
+      ds.headers.forEach(h => {
+        const th = document.createElement('th');
+        th.className = 'p-3 text-[11px] border-b border-slate-800 whitespace-nowrap';
+        th.textContent = h;
+        trHead.appendChild(th);
+      });
+      thead.appendChild(trHead);
+
+      // Render Rows
+      if (rows.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="${ds.headers.length}" class="p-8 text-center text-slate-500">
+              검색 조건에 일치하는 데이터가 없습니다.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      rows.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-900/60 transition border-b border-slate-900 text-[11px]';
+
+        ds.headers.forEach(h => {
+          const td = document.createElement('td');
+          td.className = 'p-3 whitespace-nowrap';
+          const val = r[h] || '';
+
+          // Status & Grade Badges formatting
+          if (h === '안전등급' || h === '조치상태') {
+            let color = 'bg-slate-800 text-slate-300';
+            if (val === '긴급' || val === '지연') color = 'bg-rose-500/20 text-rose-400 border border-rose-500/30 font-bold';
+            else if (val === '주의' || val === '조치중') color = 'bg-amber-500/20 text-amber-400 border border-amber-500/30 font-semibold';
+            else if (val === '정상' || val === '완료') color = 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+            td.innerHTML = `<span class="px-2 py-0.5 rounded text-[10px] ${color}">${val}</span>`;
+          } else if (h === '유입수_pH') {
+            const num = parseFloat(val);
+            const isAcid = num < 5.0;
+            td.innerHTML = `<span class="font-mono font-bold ${isAcid ? 'text-rose-400' : 'text-slate-300'}">${val}</span>`;
+          } else {
+            td.textContent = val;
+          }
+
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderRawCSV(ds) {
+      if (!ds.headers || !ds.rows) return;
+      const csvLines = [ds.headers.join(',')];
+      ds.rows.forEach(r => {
+        const line = ds.headers.map(h => `"${(r[h] || '').replace(/"/g, '""')}"`).join(',');
+        csvLines.push(line);
+      });
+      document.getElementById('rawContent').textContent = csvLines.join('\n');
+    }
+
+    function filterActiveData() {
+      const ds = DATASETS[currentDatasetIndex];
+      const query = document.getElementById('dataSearchInput').value.trim().toLowerCase();
+
+      if (ds.type === 'TXT') {
+        // Text filtering
+        const raw = ds.rawText;
+        if (!query) {
+          document.getElementById('rawContent').textContent = raw;
+        } else {
+          const filteredLines = raw.split('\n\n').filter(block => block.toLowerCase().includes(query));
+          document.getElementById('rawContent').textContent = filteredLines.join('\n\n');
+        }
+        return;
+      }
+
+      // CSV Table filtering
+      if (!query) {
+        currentFilteredRows = [...ds.rows];
+      } else {
+        currentFilteredRows = ds.rows.filter(row => {
+          return ds.headers.some(h => (row[h] || '').toLowerCase().includes(query));
+        });
+      }
+
+      document.getElementById('dataRowCount').textContent = currentFilteredRows.length;
+      renderTableRows(currentFilteredRows);
+    }
+
+    function clearSearch() {
+      document.getElementById('dataSearchInput').value = '';
+      filterActiveData();
+      document.getElementById('dataSearchInput').focus();
+    }
+
+    function setViewMode(mode) {
+      currentViewMode = mode;
+      const btnTable = document.getElementById('btnViewTable');
+      const btnRaw = document.getElementById('btnViewRaw');
+      const tableViewport = document.getElementById('tableViewport');
+      const rawViewport = document.getElementById('rawViewport');
+
+      if (mode === 'table') {
+        btnTable.className = 'px-3 py-1 rounded-lg font-semibold bg-teal-600 text-white transition flex items-center gap-1.5';
+        btnRaw.className = 'px-3 py-1 rounded-lg font-semibold text-slate-400 hover:text-white transition flex items-center gap-1.5';
+        tableViewport.classList.remove('hidden');
+        rawViewport.classList.add('hidden');
+      } else {
+        btnRaw.className = 'px-3 py-1 rounded-lg font-semibold bg-teal-600 text-white transition flex items-center gap-1.5';
+        btnTable.className = 'px-3 py-1 rounded-lg font-semibold text-slate-400 hover:text-white transition flex items-center gap-1.5';
+        rawViewport.classList.remove('hidden');
+        tableViewport.classList.add('hidden');
+      }
+    }
+
+    function copyActiveDataset() {
+      const ds = DATASETS[currentDatasetIndex];
+      let textToCopy = '';
+
+      if (ds.type === 'TXT') {
+        textToCopy = ds.rawText;
+      } else {
+        const csvLines = [ds.headers.join(',')];
+        ds.rows.forEach(r => {
+          const line = ds.headers.map(h => `"${(r[h] || '').replace(/"/g, '""')}"`).join(',');
+          csvLines.push(line);
+        });
+        textToCopy = csvLines.join('\n');
+      }
+
+      copyToClipboard(textToCopy, `📋 '${ds.title}' 전체 데이터가 클립보드에 복사되었습니다!`);
+    }
+
+    function copyRecommendedPrompt() {
+      const ds = DATASETS[currentDatasetIndex];
+      copyToClipboard(ds.recommendedPrompt, '💡 추천 프롬프트가 복사되었습니다. Gemini 입력창에 붙여넣으세요!');
+    }
+
+    function copyToClipboard(text, successMsg) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      try {
+        const success = document.execCommand('copy');
+        if (success) {
+          showToast(successMsg);
+        } else {
+          showToast('복사에 실패했습니다. 수동으로 복사해주세요.');
+        }
+      } catch (err) {
+        showToast('클립보드 권한이 필요합니다.');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function downloadActiveDataset() {
+      const ds = DATASETS[currentDatasetIndex];
+
+      if (ds.type === 'TXT') {
+        downloadBlob(ds.rawText, ds.filename, 'text/plain;charset=utf-8;');
+      } else {
+        // CSV with UTF-8 BOM (\uFEFF) for Microsoft Excel compatibility
+        const csvLines = [ds.headers.join(',')];
+        ds.rows.forEach(r => {
+          const line = ds.headers.map(h => `"${(r[h] || '').replace(/"/g, '""')}"`).join(',');
+          csvLines.push(line);
+        });
+        const csvContent = '\uFEFF' + csvLines.join('\n');
+        downloadBlob(csvContent, ds.filename, 'text/csv;charset=utf-8;');
+      }
+
+      showToast(`📥 '${ds.filename}' 파일 다운로드가 시작되었습니다.`);
+    }
+
+    function downloadBlob(content, filename, mimeType) {
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', filename);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadAllDatasets() {
+      showToast('📦 전체 5종 데이터셋을 순차적으로 다운로드합니다...');
+      DATASETS.forEach((ds, i) => {
+        setTimeout(() => {
+          if (ds.type === 'TXT') {
+            downloadBlob(ds.rawText, ds.filename, 'text/plain;charset=utf-8;');
+          } else {
+            const csvLines = [ds.headers.join(',')];
+            ds.rows.forEach(r => {
+              const line = ds.headers.map(h => `"${(r[h] || '').replace(/"/g, '""')}"`).join(',');
+              csvLines.push(line);
+            });
+            const csvContent = '\uFEFF' + csvLines.join('\n');
+            downloadBlob(csvContent, ds.filename, 'text/csv;charset=utf-8;');
+          }
+        }, i * 350);
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      const msgEl = document.getElementById('toastMsg');
+      msgEl.textContent = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 2800);
+    }
+  </script>
+</body>
+</html>
